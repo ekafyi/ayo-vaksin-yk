@@ -19,6 +19,7 @@ const prerenderPages = [
 	"/di/rs-pku-muhammadiyah-yogyakarta",
 	"/di/rs-pratama",
 	"/di/rs-sakina-idaman",
+	"/di/rs-siloam",
 	"/di/rs-uad",
 	"/di/rskia-pku-muhammadiyah-kotagede",
 	"/di/rsup-dr-sardjito",

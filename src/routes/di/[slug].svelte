@@ -130,8 +130,7 @@
 							<section class="list-with-cta" aria-label="whatsapp">
 								<span class="pt-0.5">
 									<!-- prettier-ignore -->
-									<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-										viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 58 58">
 										<path style="fill:#2CB742;" d="M0,58l4.988-14.963C2.457,38.78,1,33.812,1,28.5C1,12.76,13.76,0,29.5,0S58,12.76,58,28.5
 											S45.24,57,29.5,57c-4.789,0-9.299-1.187-13.26-3.273L0,58z"/>
 										<path style="fill:#FFFFFF;" d="M47.683,37.985c-1.316-2.487-6.169-5.331-6.169-5.331c-1.098-0.626-2.423-0.696-3.049,0.42
@@ -182,9 +181,9 @@
 						<section class="list-with-cta py-2" aria-label="alamat">
 							<span>
 								<!-- prettier-ignore -->
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
 								 </svg>
 							</span>
 							<span>
@@ -196,9 +195,9 @@
 					{#if location.phone}
 						<section class="list-with-cta py-2" aria-label="telepon">
 							<!-- prettier-ignore -->
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
-									<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-								</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+								<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+							</svg>
 							<span>{location.phone.text}</span>
 							<a class="list__item-cta" href={location.phone.url} rel="external">Panggil</a>
 						</section>
