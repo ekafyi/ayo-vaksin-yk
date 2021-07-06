@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	main {
+		min-height: calc(100vh - 14rem);
+	}
+}
+
+@layer components {
+	.horizontal-media-scroller {
+		--outer-gap: 1rem;
+
+		@apply grid grid-flow-col auto-cols-max overflow-x-auto gap-2;
+
+		-webkit-padding-start: var(--outer-gap);
+		padding-inline-start: var(--outer-gap);
+		-webkit-padding-before: calc(var(--outer-gap) / 2);
+		-webkit-padding-after: calc(var(--outer-gap) / 2);
+		padding-block-start: calc(var(--outer-gap) / 2);
+		padding-block-end: calc(var(--outer-gap) / 2);
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.horizontal-media-scroller > * {
+		display: inline-block;
+	}
+
+	.cv-page-outer {
+		@apply px-4 max-w-3xl mx-auto;
+	}
+
+	.cv-select {
+		@apply text-xs appearance-none py-1 pl-2 pr-6 border bg-white rounded-xl shadow-sm hover:border-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
+		/* prettier-ignore */
+		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+		background-position: right 0.25rem center;
+		background-repeat: no-repeat;
+		background-size: 1.5em 1.5em;
+	}
+
+	.cv-inline-link {
+		@apply border-b font-medium text-indigo-600 border-gray-400 hover:border-indigo-600 focus:border-indigo-600;
+	}
+
+	.cv-misc-page__title {
+		@apply font-semibold text-3xl sm:text-4xl leading-tight mb-8 sm:mt-2;
+	}
+}
