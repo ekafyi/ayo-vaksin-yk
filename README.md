@@ -1,9 +1,9 @@
-# ayovaksinjogja
+# ayo-vaksin-yk
 
-in progress
+documentation in progress
 
 ### Credits
 
-- Icon by [Freepik](https://www.freepik.com/)
+- Favicon by [Freepik](https://www.freepik.com/)
+- OpenGraph image from [Canva](https://canva.com)
 - Handwashing illustration by [Monkik](https://www.flaticon.com/authors/monkik)
-
