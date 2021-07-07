@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { browser } from "$app/env";
+	import { prefetch } from "$app/navigation";
 	import slugify from "slugify";
 	import { SLUGIFY_OPTIONS } from "$lib/constants";
 	import TagList from "./TagList.svelte";
@@ -17,6 +19,7 @@
 			id={`alabel-${loc.id}`}
 			class="location__name"
 			href={`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`}
+			sveltekit:prefetch
 		>
 			{`${loc.name} ${loc.canRegister ? "" : " ⛔️"}`}
 		</a>

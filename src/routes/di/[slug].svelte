@@ -17,14 +17,15 @@
 			};
 		}
 		return {
-			error: new Error(`${res.status || ""} Could not load location data`),
+			status: res.status,
+			error: new Error("Gagal memuat data lokasi vaksin"),
 		};
 	};
 </script>
 
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { Header, Footer, TagList } from "../../components";
+	import { TagList } from "../../components";
 	import EmbedInstagram from "../../components/EmbedInstagram.svelte";
 	import { PROVINCE_NAME, HEADING_TEXT } from "$lib/constants";
 
@@ -47,7 +48,6 @@
 	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </svelte:head>
 
-<Header mode="COMPACT" />
 <main class="cv-page-outer">
 	{#if location}
 		<h1 class="font-semibold text-2xl sm:text-3xl leading-tight mb-4">
@@ -244,7 +244,6 @@
 		</div>
 	{/if}
 </main>
-<Footer />
 
 <style lang="postcss">
 	.top-section {

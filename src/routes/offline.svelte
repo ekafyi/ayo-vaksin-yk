@@ -6,11 +6,6 @@
 	export const prerender = true;
 </script>
 
-<script lang="ts">
-	import { Header, Footer } from "../components";
-</script>
-
-<Header mode="COMPACT" />
 <main class="cv-page-outer">
 	<div class="text-center py-16">
 		<h1 class="cv-misc-page__title">offline</h1>
@@ -22,4 +17,3 @@
 		<p class="pt-4 text-sm">Hubungi hotline 119 untuk kondisi darurat.</p>
 	</div>
 </main>
-<Footer />
