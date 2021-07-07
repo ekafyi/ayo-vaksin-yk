@@ -15,16 +15,14 @@
 </script>
 
 <script lang="ts">
-	import { Header, Footer } from "../components";
 	import { HEADING_TEXT } from "$lib/constants";
 </script>
 
 <svelte:head>
-	<!-- FIXME ?? y u no work on server-rendered -->
+	<!-- ?? 😿 y u no work on server-rendered -->
 	<title>Tentang — {HEADING_TEXT.title}</title>
 </svelte:head>
 
-<Header mode="COMPACT" />
 <main class="cv-page-outer">
 	<h1 class="cv-misc-page__title">Tentang</h1>
 	<div class="grid gap-y-3">
@@ -33,9 +31,7 @@
 			untuk mencari lokasi vaksinasi COVID dan melakukan tindak lanjut seperti mendaftar atau menghubungi
 			faskes penyelenggara.
 		</p>
-		<p>
-			Situs ini merupakan prakarsa pribadi, tidak terafiliasi dengan lembaga atau kelompok mana pun.
-		</p>
+		<p>Situs ini tidak terafiliasi dengan lembaga atau kelompok mana pun.</p>
 		<p>
 			Seluruh vaksin di situs ini <em>gratis</em>. Jika diminta membayar atau mengirim data pribadi
 			oleh akun/nomor selain yang tertera di sini, harap konfirmasi ke kontak resmi faskes terkait.
@@ -47,4 +43,3 @@
 		</p>
 	</div>
 </main>
-<Footer />
