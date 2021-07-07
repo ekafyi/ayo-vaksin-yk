@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
 	import type { Load } from "@sveltejs/kit";
-	// import { headerMode } from "./__layout.svelte";
 
 	let storedPayload;
 
@@ -31,6 +30,7 @@
 	import { vaxMachineConfig, vaxMachineOptions, vaxModel } from "$lib/machines/vaxMachine";
 	import { OPTION_CITIES, OPTION_AGES } from "$lib/constants";
 	import { LocationList } from "../components";
+	import FilterButton from "../components/FilterButton.svelte";
 
 	export let locations: ILocationInList[] = [];
 
@@ -73,7 +73,7 @@
 			<select
 				aria-label="kota/kabupaten"
 				class="cv-select"
-				class:filter-btn--active={$state.context.activeFilters.CITY}
+				class:cv-select--active={$state.context.activeFilters.CITY}
 				bind:value={cityInput}
 				on:change={handleSelectCity}
 			>
@@ -82,11 +82,12 @@
 				</option>
 				{#each OPTION_CITIES as opt}<option value={opt}>{opt}</option>{/each}
 			</select>
+
 			<!-- svelte-ignore a11y-no-onchange -->
 			<select
 				aria-label="kelompok usia"
 				class="cv-select"
-				class:filter-btn--active={$state.context.activeFilters.AGE}
+				class:cv-select--active={$state.context.activeFilters.AGE}
 				bind:value={ageInput}
 				on:change={handleSelectAge}
 			>
@@ -96,13 +97,15 @@
 				{#each OPTION_AGES as opt}<option value={opt.key}>{opt.text}</option>{/each}
 			</select>
 
-			<!-- prettier-ignore -->
-			<button class="filter-btn" class:filter-btn--active={$state.context.activeFilters.KTP_ANY_LOCATION} on:click={handleSelectTanpaSyarat}>
+			<FilterButton
+				classActive={$state.context.activeFilters.KTP_ANY_LOCATION}
+				on:click={handleSelectTanpaSyarat}
+			>
 				Semua Domisili Tanpa Syarat
-			</button>
+			</FilterButton>
 
 			{#if canReset($state.context.activeFilters)}
-				<button class="filter-btn filter-btn--reset" on:click={() => send("RESET")}>Reset</button>
+				<FilterButton classReset={true} on:click={() => send("RESET")}>Reset</FilterButton>
 			{/if}
 
 			<div class="w-1" aria-hidden="true" />
@@ -119,19 +122,3 @@
 		{/if}
 	</div>
 </main>
-
-<style lang="postcss">
-	.filter-btn {
-		@apply text-xs px-3 py-1 border rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
-	}
-	.filter-btn--active {
-		@apply border-indigo-600 ring-1 ring-indigo-600 bg-indigo-50;
-	}
-	.filter-btn--reset {
-		@apply font-medium hover:bg-gray-50;
-		border-color: transparent !important;
-	}
-	/* .filter-btn[disabled] {
-		@apply text-gray-400 bg-gray-50 border-transparent cursor-not-allowed;
-	} */
-</style>

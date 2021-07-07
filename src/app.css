@@ -39,6 +39,9 @@
 		background-repeat: no-repeat;
 		background-size: 1.5em 1.5em;
 	}
+	.cv-select--active {
+		@apply border-indigo-600 ring-1 ring-indigo-600 bg-indigo-50;
+	}
 	.cv-select[disabled],
 	.cv-select:hover[disabled] {
 		@apply text-gray-600 border-gray-200;
