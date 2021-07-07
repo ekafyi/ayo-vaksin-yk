@@ -1,36 +1,42 @@
 <script lang="ts">
 	import "../app.css";
+	import { dev, browser } from "$app/env";
+	import { Workbox } from "workbox-window";
+	import type { WorkboxLifecycleEventMap } from "workbox-window/utils/WorkboxEvent";
+	import { onMount } from "svelte";
 
-	// // !! using regular SW file
-	// import { dev, browser } from "$app/env";
-	// import { Workbox } from "workbox-window";
+	let offlineReady = false;
 
-	// let offlineReady = false;
+	onMount(() => {
+		if (browser && "serviceWorker" in navigator) {
+			// see: https://developers.google.com/web/tools/workbox/modules/workbox-window
+			const wb = new Workbox("/service-worker.js", { scope: "/" });
+			// not used right now, leave for future stuff eg. push notif
+			let registration: ServiceWorkerRegistration | null;
 
-	// if (!dev && browser && "serviceWorker" in navigator) {
-	// 	// see: https://developers.google.com/web/tools/workbox/modules/workbox-window
-	// 	const wb = new Workbox("/service-worker.js", { scope: "/" });
-	// 	let registration: ServiceWorkerRegistration | null;
+			wb.addEventListener("activated", (event) => {
+				console.log("🐥", "~~~ 💻  WB activated ~~~", event.isUpdate ? "" : "first time");
+				// see: https://developers.google.com/web/tools/workbox/modules/workbox-window#example-first-active
+				if (!event.isUpdate) offlineReady = true;
+			});
 
-	// 	// events - WorkboxLifecycleEventMap
-	// 	// "installing" | "installed" | "waiting" | "activating" | "activated" | "controlling" | "redundant"
+			// Leave for debugging.
+			const WB_EVENTS = ["installed", "controlling", "activating", "waiting"];
+			WB_EVENTS.forEach((wbEvent) => {
+				wb.addEventListener(wbEvent as keyof WorkboxLifecycleEventMap, (event) => {
+					console.log(`~~~ 💻  WB ${wbEvent} ~~~`);
+				});
+			});
 
-	// 	wb.addEventListener("activated", (event) => {
-	// 		console.log("🐥", "~~~ wb activated ~~~", event.isUpdate ? "" : "first time");
-	// 		// see: https://developers.google.com/web/tools/workbox/modules/workbox-window#example-first-active
-	// 		if (!event.isUpdate) {
-	// 			offlineReady = true;
-	// 		}
-	// 	});
+			// Register the service worker after event listeners have been added.
+			wb.register({ immediate: true }).then((r) => {
+				console.log("~~~ 💻  WB registration ~~~", r);
+				registration = r;
+			});
+		}
+	});
 
-	// 	// Register the service worker after event listeners have been added.
-	// 	wb.register({ immediate: true }).then((r) => {
-	// 		console.log("~~~ wb registration ~~~", r);
-	// 		registration = r;
-	// 	});
-	// }
-
-	// $: if (offlineReady) console.log("offline ready???", offlineReady);
+	$: if (offlineReady) console.log("offline ready?", offlineReady);
 </script>
 
 <svelte:head>
