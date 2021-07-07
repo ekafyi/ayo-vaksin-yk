@@ -13,10 +13,6 @@ const OFFLINE_URL = `/offline`;
 
 declare let self: ServiceWorkerGlobalScope;
 
-self.addEventListener("message", (event) => {
-	if (event.data) console.log("!!! SW message !!!", event.data);
-});
-
 self.addEventListener("activate", (event) => {
 	console.log("!!! SW activate !!!", event);
 	// the first time a service worker is installed it will active but not start controlling the page unless `clients.claim()` is called in the service worker.
@@ -33,14 +29,6 @@ self.addEventListener("install", () => {
 
 // ==============
 // ==============
-
-// warmStrategyCache({
-// 	urls: [OFFLINE_URL, "/manifest.json"],
-// 	strategy: new StaleWhileRevalidate({
-// 		cacheName: "cv-warm-pages",
-// 		plugins: [new ExpirationPlugin({ maxAgeSeconds: 1 * 24 * 60 * 60 })],
-// 	}),
-// });
 
 precacheAndRoute([
 	{ url: START_URL, revision: `${timestamp}` },
@@ -93,7 +81,6 @@ setCatchHandler(async ({ event }) => {
 
 	// see: https://developers.google.com/web/tools/workbox/guides/advanced-recipes#handle
 	if (fetchEvent.request.destination == "document") {
-		console.log("aaaaaa ", fetchEvent);
 		return caches.match(OFFLINE_URL);
 	}
 
