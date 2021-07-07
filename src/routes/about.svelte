@@ -15,7 +15,6 @@
 </script>
 
 <script lang="ts">
-	import { Header, Footer } from "../components";
 	import { HEADING_TEXT } from "$lib/constants";
 </script>
 
@@ -24,7 +23,6 @@
 	<title>Tentang — {HEADING_TEXT.title}</title>
 </svelte:head>
 
-<Header mode="COMPACT" />
 <main class="cv-page-outer">
 	<h1 class="cv-misc-page__title">Tentang</h1>
 	<div class="grid gap-y-3">
@@ -45,4 +43,3 @@
 		</p>
 	</div>
 </main>
-<Footer />

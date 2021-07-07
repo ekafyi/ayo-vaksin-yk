@@ -5,7 +5,6 @@
 
 	export const load: Load = async ({ page, fetch, session, context }) => {
 		if (storedPayload) return { props: { locations: storedPayload } }; // heheheh
-
 		const res = await fetch(`/api/pd_locations`);
 		if (res.ok) {
 			const { payload } = await res.json();
@@ -14,13 +13,15 @@
 				props: { locations: payload },
 			};
 		}
+		// Don't send res.text() client-side as it may contain external API URLs.
 		return {
-			error: new Error(`${res.status || ""} Could not load locations data`),
+			// Returning any object with no error prop = rendering the HTML shell without props data (ie. location).
+			status: res.status, // Default to 500 if not returned, but not seemed to be passed anywhere.
+
+			// Returning object with "error" prop = rendering adjacemt __error component.
+			error: new Error(`${res.statusText || "Gagal memuat data"}`),
 		};
 	};
-
-	// ?? persist to store if on browser?
-	// https://stackoverflow.com/questions/56488202/how-to-persist-svelte-store
 </script>
 
 <script lang="ts">
@@ -28,9 +29,10 @@
 	import { useMachine } from "@xstate/svelte";
 	import { vaxMachineConfig, vaxMachineOptions, vaxModel } from "$lib/machines/vaxMachine";
 	import { OPTION_CITIES, OPTION_AGES } from "$lib/constants";
-	import { Header, Footer, LocationList } from "../components";
+	import { LocationList } from "../components";
+	import FilterButton from "../components/FilterButton.svelte";
 
-	export let locations: ILocationInList[];
+	export let locations: ILocationInList[] = [];
 
 	const vaxMachine = createMachine<typeof vaxModel>(vaxMachineConfig, {
 		actions: vaxMachineOptions.actions,
@@ -64,7 +66,6 @@
 	// $: console.log("🍏", $state.value);
 </script>
 
-<Header />
 <main class="cv-page-outer">
 	<nav class="pb-4 sm:pt-4 border-b" aria-label="Filter lokasi">
 		<div class="-mx-4 horizontal-media-scroller">
@@ -72,7 +73,7 @@
 			<select
 				aria-label="kota/kabupaten"
 				class="cv-select"
-				class:filter-btn--active={$state.context.activeFilters.CITY}
+				class:cv-select--active={$state.context.activeFilters.CITY}
 				bind:value={cityInput}
 				on:change={handleSelectCity}
 			>
@@ -81,11 +82,12 @@
 				</option>
 				{#each OPTION_CITIES as opt}<option value={opt}>{opt}</option>{/each}
 			</select>
+
 			<!-- svelte-ignore a11y-no-onchange -->
 			<select
 				aria-label="kelompok usia"
 				class="cv-select"
-				class:filter-btn--active={$state.context.activeFilters.AGE}
+				class:cv-select--active={$state.context.activeFilters.AGE}
 				bind:value={ageInput}
 				on:change={handleSelectAge}
 			>
@@ -95,13 +97,15 @@
 				{#each OPTION_AGES as opt}<option value={opt.key}>{opt.text}</option>{/each}
 			</select>
 
-			<!-- prettier-ignore -->
-			<button class="filter-btn" class:filter-btn--active={$state.context.activeFilters.KTP_ANY_LOCATION} on:click={handleSelectTanpaSyarat}>
+			<FilterButton
+				classActive={$state.context.activeFilters.KTP_ANY_LOCATION}
+				on:click={handleSelectTanpaSyarat}
+			>
 				Semua Domisili Tanpa Syarat
-			</button>
+			</FilterButton>
 
 			{#if canReset($state.context.activeFilters)}
-				<button class="filter-btn filter-btn--reset" on:click={() => send("RESET")}>Reset</button>
+				<FilterButton classReset={true} on:click={() => send("RESET")}>Reset</FilterButton>
 			{/if}
 
 			<div class="w-1" aria-hidden="true" />
@@ -113,25 +117,14 @@
 			<LocationList locations={$state.context.locations} />
 		{:else}
 			<p class="text-gray-700 text-center text-sm px-4 py-16">
-				{$state.value === "loading" ? "Memuat..." : "Data tidak ditemukan"}
+				{$state.value === "loading" ? "Memuat..." : "Tidak ditemukan."}
 			</p>
 		{/if}
 	</div>
 </main>
-<Footer />
 
-<style lang="postcss">
-	.filter-btn {
-		@apply text-xs px-3 py-1 border rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
+<style>
+	main {
+		min-height: calc(100vh - 19rem);
 	}
-	.filter-btn--active {
-		@apply border-indigo-600 ring-1 ring-indigo-600 bg-indigo-50;
-	}
-	.filter-btn--reset {
-		@apply font-medium hover:bg-gray-50;
-		border-color: transparent !important;
-	}
-	/* .filter-btn[disabled] {
-		@apply text-gray-400 bg-gray-50 border-transparent cursor-not-allowed;
-	} */
 </style>

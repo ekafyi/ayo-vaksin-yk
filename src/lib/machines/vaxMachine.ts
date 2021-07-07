@@ -42,12 +42,12 @@ export const filterValid = (ctx: IVaxContext, evt: ApplyFilterEvent): boolean =>
 		typeof query == "object" &&
 		Object.getOwnPropertyNames(query).length &&
 		["AGE", "CITY", "KTP_ANY_LOCATION"].includes(Object.getOwnPropertyNames(query)[0]); // ! This can only handle 1 filter. Refactor if applying multiple-property filter.
-	console.log("🚦 filtervalid?", isValid);
+	// console.log("🚦 filtervalid?", isValid);
 	return isValid;
 };
 
 export const updateActiveFilters = (ctx: IVaxContext, evt: ApplyFilterEvent): ILocFilter => {
-	console.log("🚦 updateActiveFilters...");
+	// console.log("🚦 updateActiveFilters...");
 	return {
 		...ctx.activeFilters,
 		...evt.query,
@@ -61,7 +61,7 @@ const fetchLocations = async (): Promise<ILocationInList[]> => {
 };
 
 const updateLocations = (ctx: IVaxContext): ILocationInList[] => {
-	console.log("🚦 updateLocations", ctx.activeFilters);
+	// console.log("🚦 updateLocations", ctx.activeFilters);
 
 	// Get updated active filters and filter locations data.
 	const data = ctx.allLocations

@@ -17,14 +17,15 @@
 			};
 		}
 		return {
-			error: new Error(`${res.status || ""} Could not load location data`),
+			status: res.status,
+			error: new Error("Gagal memuat data lokasi"),
 		};
 	};
 </script>
 
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { Header, Footer, TagList } from "../../components";
+	import { TagList } from "../../components";
 	import EmbedInstagram from "../../components/EmbedInstagram.svelte";
 	import { PROVINCE_NAME, HEADING_TEXT } from "$lib/constants";
 
@@ -47,7 +48,6 @@
 	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </svelte:head>
 
-<Header mode="COMPACT" />
 <main class="cv-page-outer">
 	{#if location}
 		<h1 class="font-semibold text-2xl sm:text-3xl leading-tight mb-4">
@@ -217,7 +217,7 @@
 							<EmbedInstagram url={location.source.url} />
 						</div>
 					{:else if shouldShowEmbedTwitter && location.source?.url.includes("twitter.com/")}
-						<div class="pt-2 text-white">
+						<div class="pt-2 text-white flex justify-center">
 							<blockquote class="twitter-tweet" data-conversation="none">
 								<a href={location.source.url}>2021</a>
 							</blockquote>
@@ -230,8 +230,8 @@
 			{/if}
 		</div>
 	{:else}
-		<div class="text-center py-16">
-			<h1 class="cv-misc-page__title">404</h1>
+		<div role="alert" class="text-center py-16">
+			<strong class="cv-misc-page__title">404</strong>
 			<img
 				class="mx-auto my-6"
 				loading="lazy"
@@ -240,11 +240,10 @@
 				src="/not-found.gif"
 				alt="adegan film, tokoh yang diperankan John Travolta melihat sekeliling dengan bingung"
 			/>
-			Data tidak ditemukan.<br />Kembali ke <a class="cv-inline-link" href="/">halaman awal</a>.
+			Lokasi tidak ditemukan.<br />Kembali ke <a class="cv-inline-link" href="/">halaman awal</a>.
 		</div>
 	{/if}
 </main>
-<Footer />
 
 <style lang="postcss">
 	.top-section {
