@@ -122,3 +122,9 @@
 		{/if}
 	</div>
 </main>
+
+<style>
+	main {
+		min-height: calc(100vh - 19rem);
+	}
+</style>

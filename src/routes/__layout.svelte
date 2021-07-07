@@ -58,8 +58,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 </svelte:head>
 
-<div>
-	<Header mode={headerMode} />
-	<slot />
-	<Footer />
-</div>
+<!-- <div> -->
+<Header mode={headerMode} />
+<slot />
+<Footer />
+<!-- </div> -->

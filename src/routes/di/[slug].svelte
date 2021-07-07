@@ -18,7 +18,7 @@
 		}
 		return {
 			status: res.status,
-			error: new Error("Gagal memuat data lokasi vaksin"),
+			error: new Error("Gagal memuat data lokasi"),
 		};
 	};
 </script>
@@ -217,7 +217,7 @@
 							<EmbedInstagram url={location.source.url} />
 						</div>
 					{:else if shouldShowEmbedTwitter && location.source?.url.includes("twitter.com/")}
-						<div class="pt-2 text-white">
+						<div class="pt-2 text-white flex justify-center">
 							<blockquote class="twitter-tweet" data-conversation="none">
 								<a href={location.source.url}>2021</a>
 							</blockquote>
@@ -230,8 +230,8 @@
 			{/if}
 		</div>
 	{:else}
-		<div class="text-center py-16">
-			<h1 class="cv-misc-page__title">404</h1>
+		<div role="alert" class="text-center py-16">
+			<strong class="cv-misc-page__title">404</strong>
 			<img
 				class="mx-auto my-6"
 				loading="lazy"
@@ -240,7 +240,7 @@
 				src="/not-found.gif"
 				alt="adegan film, tokoh yang diperankan John Travolta melihat sekeliling dengan bingung"
 			/>
-			Data tidak ditemukan.<br />Kembali ke <a class="cv-inline-link" href="/">halaman awal</a>.
+			Lokasi tidak ditemukan.<br />Kembali ke <a class="cv-inline-link" href="/">halaman awal</a>.
 		</div>
 	{/if}
 </main>
