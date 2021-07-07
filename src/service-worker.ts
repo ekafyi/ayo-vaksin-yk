@@ -15,22 +15,20 @@ declare let self: ServiceWorkerGlobalScope;
 
 self.addEventListener("message", (event) => {
 	if (event.data) console.log("!!! SW message !!!", event.data);
-	// Activate new service worker as soon as it's finished installing.
-	// see: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
-	if (event.data && event.data.type === "SKIP_WAITING") {
-		self.skipWaiting();
-	}
 });
 
 self.addEventListener("activate", (event) => {
 	console.log("!!! SW activate !!!", event);
 	// the first time a service worker is installed it will active but not start controlling the page unless `clients.claim()` is called in the service worker.
 	// see: https://github.com/GoogleChrome/workbox/blob/v6/packages/workbox-window/src/Workbox.ts#L232-L234
-	self.clients.claim();
+	event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener("install", () => {
 	console.log("!!! SW install !!!");
+	// Activate new service worker as soon as it's finished installing.
+	// see: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#skip_the_waiting_phase
+	self.skipWaiting();
 });
 
 // ==============
