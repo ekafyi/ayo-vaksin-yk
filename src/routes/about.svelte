@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<!-- FIXME ?? y u no work on server-rendered -->
+	<!-- ?? 😿 y u no work on server-rendered -->
 	<title>Tentang — {HEADING_TEXT.title}</title>
 </svelte:head>
 
@@ -33,9 +33,7 @@
 			untuk mencari lokasi vaksinasi COVID dan melakukan tindak lanjut seperti mendaftar atau menghubungi
 			faskes penyelenggara.
 		</p>
-		<p>
-			Situs ini merupakan prakarsa pribadi, tidak terafiliasi dengan lembaga atau kelompok mana pun.
-		</p>
+		<p>Situs ini tidak terafiliasi dengan lembaga atau kelompok mana pun.</p>
 		<p>
 			Seluruh vaksin di situs ini <em>gratis</em>. Jika diminta membayar atau mengirim data pribadi
 			oleh akun/nomor selain yang tertera di sini, harap konfirmasi ke kontak resmi faskes terkait.
