@@ -34,6 +34,8 @@
 		@apply px-4 max-w-3xl mx-auto;
 	}
 
+	/* (LATER) on focus-visible "issue" */
+	/* https://github.com/w3c/csswg-drafts/issues/5822 */
 	.cv-select {
 		@apply text-sm appearance-none py-1 pl-3 pr-7 border bg-white rounded-2xl shadow-sm hover:border-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
 		/* prettier-ignore */
