@@ -62,11 +62,26 @@
 
 	$: if (offlineReady) console.log("offline ready?", offlineReady);
 
-	$: headerMode = $page.path == "/" ? "FULL" : "COMPACT";
+	$: {
+		headerMode = $page.path == "/" ? "FULL" : "COMPACT";
+
+		if (browser && $page.path) {
+			// console.log($page.path, "🐐", typeof window.goatcounter);
+			if (typeof window.goatcounter == "object")
+				window.goatcounter.count({
+					path: $page.path, // add page.query if using param queries
+				});
+		}
+	}
 </script>
 
 <svelte:head>
 	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<script
+		data-goatcounter="https://ayo-vaksin-yk.goatcounter.com/count"
+		src="//gc.zgo.at/count.js"
+		async>
+	</script>
 </svelte:head>
 
 <Header mode={headerMode} />
