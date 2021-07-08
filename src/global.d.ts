@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /// <reference types="@sveltejs/kit" />
 
 /** Airtable data returned via pipedream API */
@@ -121,8 +122,8 @@ interface ILocFilter {
 }
 
 interface Window {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	instgrm?: any; // IG embed script loaded in EmbedInstagram component
+	goatcounter?: any; // goatcounter.com analytics
 }
 
 interface BeforeInstallPromptEvent extends Event {
