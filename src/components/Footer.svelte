@@ -1,5 +1,5 @@
 <footer class="mt-8 text-center">
-	<ul class="footer-links py-4 mb-2 text-sm text-gray-500">
+	<ul class="footer-links py-4 mb-2 text-sm text-gray-600">
 		<li><a class="footer-link" href="/about">Tentang</a></li>
 		<li>
 			<a class="footer-link" href="https://www.dinkes.jogjaprov.go.id/" rel="external">
@@ -7,7 +7,7 @@
 			</a>
 		</li>
 		<li>
-			<a class="footer-link" href="tel:119">119</a> (hotline)
+			<a class="footer-link" href="tel:119">Telepon 119</a>
 		</li>
 	</ul>
 	<p class="credit text-gray-500 border-t py-4">
@@ -25,7 +25,7 @@
 		font-size: 0.625rem;
 	}
 	.footer-link {
-		@apply font-medium text-black underline;
+		@apply font-medium underline hover:text-black focus:text-black;
 	}
 	.footer-links li {
 		display: inline-block;
