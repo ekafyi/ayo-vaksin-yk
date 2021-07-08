@@ -205,6 +205,10 @@
 				</section>
 			{/if}
 
+			{#if location.source?.note}
+				<p class="text-xs text-gray-600 mt-2">{location.source.note}</p>
+			{/if}
+
 			{#if location.source?.url}
 				<section class="p-4" aria-label="sumber">
 					<p class="text-xs text-gray-600">
@@ -217,14 +221,11 @@
 							<EmbedInstagram url={location.source.url} />
 						</div>
 					{:else if shouldShowEmbedTwitter && location.source?.url.includes("twitter.com/")}
-						<div class="pt-2 text-white flex justify-center">
+						<div class="tweet-container pt-2 text-white flex justify-center">
 							<blockquote class="twitter-tweet" data-conversation="none">
 								<a href={location.source.url}>2021</a>
 							</blockquote>
 						</div>
-					{/if}
-					{#if location.source?.note}
-						<p class="text-xs text-gray-600 mt-2">{location.source.note}</p>
 					{/if}
 				</section>
 			{/if}
@@ -285,5 +286,8 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
+	}
+	.tweet-container {
+		min-height: 13rem;
 	}
 </style>
