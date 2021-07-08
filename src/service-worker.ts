@@ -39,16 +39,19 @@ precacheAndRoute([
 staticResourceCache({
 	cacheName: "cv-build-assets",
 	warmCache: build,
-	plugins: [
-		new ExpirationPlugin({
-			maxEntries: 50,
-		}),
-	],
+	matchCallback: ({ request, url }) =>
+		self.origin === url.origin &&
+		(request.destination === "style" ||
+			request.destination === "script" ||
+			request.destination === "worker"),
+	plugins: [new ExpirationPlugin({ maxEntries: 50 })],
 });
 
 imageCache({
 	cacheName: "cv-images",
 	warmCache: ["/favicon.ico", "/icon-192x192.png"],
+	matchCallback: ({ request, url }) =>
+		self.origin === url.origin && request.destination === "image",
 	// This module includes ExpirationPlugin by default.
 });
 
