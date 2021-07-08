@@ -24,7 +24,7 @@
 			{`${loc.name} ${loc.canRegister ? "" : " ⛔️"}`}
 		</a>
 
-		<dl class="flex mb-1 text-xs sm:text-sm text-gray-600">
+		<dl class="flex w-full mb-1 location__desc">
 			<dt class="sr-only">kota / kabupaten</dt>
 			<dd>{loc.city}</dd>
 			{#if loc.phone}
@@ -42,7 +42,7 @@
 
 <style lang="postcss">
 	.location__name {
-		@apply font-bold pb-1 text-sm sm:text-base;
+		@apply font-bold pb-1 text-base;
 	}
 	.location__name::after {
 		content: "";
@@ -51,6 +51,9 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
+	}
+	.location__desc {
+		@apply text-sm text-gray-600;
 	}
 	article {
 		display: grid;
