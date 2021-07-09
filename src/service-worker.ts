@@ -1,9 +1,9 @@
 import { build, timestamp } from "$service-worker";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute } from "workbox-precaching";
-import { staticResourceCache, imageCache, warmStrategyCache } from "workbox-recipes";
+import { staticResourceCache, imageCache } from "workbox-recipes";
 import { registerRoute, setCatchHandler, setDefaultHandler } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { StaleWhileRevalidate, NetworkOnly } from "workbox-strategies";
 
 const START_URL = `/`;
 const OFFLINE_URL = `/offline`;
@@ -36,22 +36,22 @@ precacheAndRoute([
 	{ url: "/manifest.json", revision: `${timestamp}` },
 ]);
 
+registerRoute(({ url }) => self.origin != url.origin, new NetworkOnly());
+
 staticResourceCache({
 	cacheName: "cv-build-assets",
 	warmCache: build,
-	matchCallback: ({ request, url }) =>
-		self.origin === url.origin &&
-		(request.destination === "style" ||
-			request.destination === "script" ||
-			request.destination === "worker"),
+	matchCallback: ({ request }) =>
+		request.destination === "style" ||
+		request.destination === "script" ||
+		request.destination === "worker",
 	plugins: [new ExpirationPlugin({ maxEntries: 50 })],
 });
 
 imageCache({
 	cacheName: "cv-images",
 	warmCache: ["/favicon.ico", "/icon-192x192.png"],
-	matchCallback: ({ request, url }) =>
-		self.origin === url.origin && request.destination === "image",
+	matchCallback: ({ request }) => request.destination === "image",
 	// This module includes ExpirationPlugin by default.
 });
 
