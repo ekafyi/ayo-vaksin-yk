@@ -20,11 +20,11 @@ self.addEventListener("activate", (event) => {
 	event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("install", () => {
+self.addEventListener("install", (event) => {
 	console.log("!!! SW install !!!");
 	// Activate new service worker as soon as it's finished installing.
 	// see: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#skip_the_waiting_phase
-	self.skipWaiting();
+	event.waitUntil(self.skipWaiting());
 });
 
 // ==============
