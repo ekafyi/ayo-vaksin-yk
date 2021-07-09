@@ -25,12 +25,16 @@
 </script>
 
 <script lang="ts">
+	import { onMount } from "svelte";
+	import { prefetchRoutes } from "$app/navigation";
+	import slugify from "slugify";
 	import { createMachine } from "xstate";
 	import { useMachine } from "@xstate/svelte";
 	import { vaxMachineConfig, vaxMachineOptions, vaxModel } from "$lib/machines/vaxMachine";
 	import { OPTION_CITIES, OPTION_AGES } from "$lib/constants";
 	import { LocationList } from "../components";
 	import FilterButton from "../components/FilterButton.svelte";
+	import { SLUGIFY_OPTIONS } from "$lib/constants";
 
 	export let locations: ILocationInList[] = [];
 
@@ -62,6 +66,12 @@
 			query: { KTP_ANY_LOCATION: !$state.context.activeFilters.KTP_ANY_LOCATION },
 		});
 	};
+
+	onMount(async () => {
+		prefetchRoutes(locations.map((loc) => `/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`)).then(
+			(res) => { console.log("👍🏽", res); } // prettier-ignore
+		);
+	});
 
 	// $: console.log("🍏", $state.value);
 </script>
