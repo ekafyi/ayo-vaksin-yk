@@ -88,11 +88,11 @@
 <slot />
 <Footer />
 
-{#if offlineReady && !offlineNoticeDismissed}
+{#if offlineReady && !offlineNoticeDismissed && $page.path == "/"}
 	<div aria-live="polite" class="notif" in:fly={{ y: 80, duration: 1000, delay: 1000 }} out:fade>
 		<p class="text-sm">
-			Situs ini siap diakses offline dari device ini. Kamu juga bisa menginstall situs ini sebagai
-			PWA.
+			Situs ini siap diakses offline. Kamu juga bisa menginstall situs ini untuk akses cepat tapi
+			tidak makan tempat.
 		</p>
 		<div class="flex justify-end mt-4 -mb-1">
 			<button
