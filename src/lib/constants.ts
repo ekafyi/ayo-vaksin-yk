@@ -1,6 +1,6 @@
 export const HEADING_TEXT = {
 	title: "Ayo Vaksin YK",
-	subtitle: "Info vaksin COVID gratis wilayah DI Yogyakarta",
+	subtitle: "Info vaksin COVID gratis DI Yogyakarta",
 };
 
 // Not imported as we add metadata in HTML shell. Leave for reference.
