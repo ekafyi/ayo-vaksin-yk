@@ -24,6 +24,14 @@ export const transformLocationData = (items: IAirtableLocation[]): ILocationInLi
 		if (item.register_url_app_ios)
 			registerApp.push({ url: item.register_url_app_ios, text: "App Store (iOS)" });
 
+		// Process age groups.
+		const ageGroups = [];
+		[item.requirement_50, item.requirement_18, item.requirement_12].forEach((requirement, i) => {
+			if (requirement?.length) ageGroups.push(AGE_GROUP_KEYS[i]);
+		});
+
+		// =======
+
 		return {
 			id: item.id,
 			name: item.name,
@@ -40,11 +48,13 @@ export const transformLocationData = (items: IAirtableLocation[]): ILocationInLi
 				phone: item.register_num_phone ? makePhoneObject(item.register_num_phone) : undefined,
 				whatsapp: item.register_num_whatsapp ? makeWAObject(item.register_num_whatsapp) : undefined,
 			},
-			ageGroups: item.requirement_18?.length ? AGE_GROUP_KEYS : [AGE_GROUP_KEYS[1]],
+			ageGroups,
 			requirementsByAgeGroup: {
+				"12_TO_17": item.requirement_12 || [],
 				"18_TO_49": item.requirement_18 || [],
 				"50_UP": item.requirement_50 || [],
 			},
+			// TODO (later) loop through all ages requirement
 			ktpAnyLocation:
 				item.requirement_18?.length && item.requirement_18.includes(SEMUA_DOMISILI_TAG_NAME),
 			requirementDetails: {

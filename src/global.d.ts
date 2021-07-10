@@ -20,6 +20,7 @@ interface IAirtableLocation {
 	register_url_app_android?: string;
 	register_url_app_ios?: string;
 	register_url_form?: string;
+	requirement_12?: string[];
 	requirement_18?: string[];
 	requirement_50?: string[];
 	requirement_ktp?: string;
@@ -38,7 +39,7 @@ interface IAirtableLocation {
 
 type RegistrationOption = "Daftar di lokasi" | "Daftar online atau telepon";
 
-type AgeGroupKey = "18_TO_49" | "50_UP";
+type AgeGroupKey = "12_TO_17" | "18_TO_49" | "50_UP";
 
 interface IContactLink {
 	url: string;
@@ -75,8 +76,9 @@ interface ILocationFull {
 	// age & requirements
 	ageGroups: AgeGroupKey[];
 	requirementsByAgeGroup: {
-		"18_TO_49": string[];
 		"50_UP": string[];
+		"18_TO_49": string[];
+		"12_TO_17": string[];
 	};
 	ktpAnyLocation: boolean;
 	requirementDetails: {

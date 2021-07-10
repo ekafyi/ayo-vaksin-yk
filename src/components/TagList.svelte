@@ -4,6 +4,9 @@
 	export let requirements: ILocationFull["requirementsByAgeGroup"];
 </script>
 
+{#each requirements["12_TO_17"] as requirement}
+	<span class="tag tag--default">{requirement}</span>
+{/each}
 {#each requirements["18_TO_49"] as requirement}
 	<!-- prettier-ignore -->
 	<span class={`tag ${ requirement == SEMUA_DOMISILI_TAG_NAME ? "tag--green capitalize" : "tag--default" }`}>{requirement}</span>
