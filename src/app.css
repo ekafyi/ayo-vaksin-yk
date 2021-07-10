@@ -34,10 +34,10 @@
 		@apply px-4 max-w-3xl mx-auto;
 	}
 
-	/* (LATER) on focus-visible "issue" */
+	/* on select:focus-visible "issue" */
 	/* https://github.com/w3c/csswg-drafts/issues/5822 */
 	.cv-select {
-		@apply text-sm appearance-none py-1 pl-3 pr-7 border bg-white rounded-2xl shadow-sm hover:border-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
+		@apply text-sm appearance-none py-1 pl-3 pr-7 border bg-white rounded-2xl shadow-sm hover:border-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-100;
 		/* prettier-ignore */
 		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
 		background-position: right 0.25rem center;

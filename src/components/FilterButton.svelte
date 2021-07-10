@@ -16,7 +16,7 @@
 
 <style lang="postcss">
 	.filter-btn {
-		@apply text-sm px-3 py-1 border rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
+		@apply text-sm px-3 py-1 border rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-100;
 	}
 	.filter-btn--active {
 		@apply border-indigo-600 ring-1 ring-indigo-600 bg-indigo-50;
