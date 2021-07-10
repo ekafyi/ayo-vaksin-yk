@@ -26,7 +26,7 @@
 
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { prefetchRoutes } from "$app/navigation";
+	import { prefetch, prefetchRoutes } from "$app/navigation";
 	import slugify from "slugify";
 	import { createMachine } from "xstate";
 	import { useMachine } from "@xstate/svelte";
@@ -35,6 +35,7 @@
 	import { LocationList } from "../components";
 	import FilterButton from "../components/FilterButton.svelte";
 	import { SLUGIFY_OPTIONS } from "$lib/constants";
+	import { userSettings } from "$lib/stores";
 
 	export let locations: ILocationInList[] = [];
 
@@ -68,9 +69,19 @@
 	};
 
 	onMount(async () => {
-		prefetchRoutes(locations.map((loc) => `/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`)).then(
-			(res) => { console.log("👍🏽", res); } // prettier-ignore
-		);
+		prefetchRoutes(
+			locations
+				.map((loc) => [
+					`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`,
+					`/api/pd_location_${slugify(loc.name, SLUGIFY_OPTIONS)}`,
+				])
+				.flat()
+		).then(() => {
+			$userSettings.hasPrefetched = true;
+		});
+
+		// not sure if i should use `prefetch` for server-rendered routes and/or API routes?
+		// also prefetch still has this issue: https://github.com/sveltejs/kit/issues/1605
 	});
 
 	// $: console.log("🍏", $state.value);

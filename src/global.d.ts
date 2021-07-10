@@ -142,4 +142,5 @@ declare global {
 
 interface IUserSettings {
 	offlineNoticeDismissed: boolean;
+	hasPrefetched: boolean;
 }
