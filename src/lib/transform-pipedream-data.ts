@@ -50,7 +50,7 @@ export const transformLocationData = (items: IAirtableLocation[]): ILocationInLi
 			},
 			ageGroups,
 			requirementsByAgeGroup: {
-				"12_TO_17": [],
+				"12_TO_17": item.requirement_12 || [],
 				"18_TO_49": item.requirement_18 || [],
 				"50_UP": item.requirement_50 || [],
 			},
