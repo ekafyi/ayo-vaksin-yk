@@ -16,11 +16,12 @@ export const SEMUA_DOMISILI_TAG_NAME = "18+ semua domisili";
 
 export const OPTION_CITIES = ["Sleman", "Kota Yogyakarta", "Bantul"];
 
-export const AGE_GROUP_KEYS: AgeGroupKey[] = ["18_TO_49", "50_UP"];
+export const AGE_GROUP_KEYS: AgeGroupKey[] = ["50_UP", "18_TO_49", "12_TO_17"];
 
 export const OPTION_AGES = [
-	{ key: AGE_GROUP_KEYS[0], text: "18 - 49" },
-	{ key: AGE_GROUP_KEYS[1], text: "50 ke atas" },
+	{ key: AGE_GROUP_KEYS[0], text: "50 ke atas" },
+	{ key: AGE_GROUP_KEYS[1], text: "18 - 49" },
+	{ key: AGE_GROUP_KEYS[2], text: "12 - 17" },
 ];
 
 export const OPTION_REGISTRATIONS: RegistrationOption[] = [
