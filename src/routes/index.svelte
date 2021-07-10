@@ -137,15 +137,25 @@
 		{#if $state.context.locations.length}
 			<LocationList locations={$state.context.locations} />
 		{:else}
-			<p class="text-gray-700 text-center text-sm px-4 py-16">
-				{$state.value === "loading" ? "Memuat..." : "Tidak ditemukan."}
-			</p>
+			<div class:no-content--loading={$state.value === "loading"} class="no-content">
+				<p class="text-gray-700 text-center text-sm p-4">
+					{$state.value === "loading" ? "Memuat..." : "Tidak ditemukan."}
+				</p>
+			</div>
 		{/if}
 	</div>
 </main>
 
-<style>
+<style lang="postcss">
 	main {
 		min-height: calc(100vh - 19rem);
+	}
+	.no-content {
+		@apply flex items-center justify-center;
+		min-height: 50vh;
+	}
+	.no-content--loading {
+		/* prevent CLS from footer */
+		min-height: calc(100vh - 16rem);
 	}
 </style>
