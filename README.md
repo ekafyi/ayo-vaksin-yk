@@ -36,13 +36,15 @@ Pada kenyataannya, Puskesmas punya keterbatasan dalam melayani warga, baik dari 
 
 ## Roadmap
 
-Rencana fitur (tentatif):
-- Melengkapi konten dengan informasi kabupaten lain
-- User dapat submit lokasi baru
-- Share (kirim atau simpan ke aplikasi ponsel, cth. Notes)
-- Halaman Puskesmas (cari Puskesmas terdekat dari user)
-- Push notifikasi jika ada lokasi baru
-- Sortir berdasarkan tanggal update terbaru
+Konten:
+- Melengkapi informasi Kab. Bantul, Kulon Progo, Gunungkidul
+
+Rencana fitur:
+- *(tentatif)* User dapat submit lokasi baru
+- *(tentatif)* Share (kirim atau simpan ke aplikasi ponsel, cth. Notes)
+- *(tentatif)* Halaman Puskesmas (cari Puskesmas terdekat dari user)
+- *(tentatif)* Push notifikasi jika ada lokasi baru
+- *(tentatif)* Sortir berdasarkan tanggal update terbaru
 
 Silakan vote fitur yang menurutmu penting di halaman [Discussions](https://github.com/ekafyi/ayo-vaksin-yk/discussions).
 
