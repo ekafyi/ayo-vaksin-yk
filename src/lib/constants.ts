@@ -38,3 +38,13 @@ export const INITIAL_LOC_FILTERS: ILocFilter = {
 	CITY: null,
 	KTP_ANY_LOCATION: false,
 };
+
+export const COPY_TEXT = {
+	// copy text macem apa ini? 😅
+	PWA_INSTALL_UI_DIALOG:
+		"Situs ini siap diakses offline. Kamu juga bisa menginstall situs ini untuk akses cepat tapi tidak makan tempat.",
+	// accept response
+	PWA_ACTION_INSTALL: "Install",
+	// close dialog (choose not to install PWA _or_ not supported)
+	PWA_ACTION_CLOSE_DIALOG: "Tutup",
+};

@@ -7,6 +7,7 @@
 	import type { WorkboxLifecycleEventMap } from "workbox-window/utils/WorkboxEvent";
 	import { Header, Footer } from "../components";
 	import { page } from "$app/stores";
+	import { COPY_TEXT } from "$lib/constants";
 
 	let headerMode: "FULL" | "COMPACT" = "COMPACT";
 
@@ -88,21 +89,16 @@
 <slot />
 <Footer />
 
-{#if offlineReady && !offlineNoticeDismissed && $page.path == "/"}
+{#if offlineReady && !offlineNoticeDismissed}
 	<div aria-live="polite" class="notif" in:fly={{ y: 80, duration: 1000, delay: 1000 }} out:fade>
-		<p class="text-sm">
-			Situs ini siap diakses offline. Kamu juga bisa menginstall situs ini untuk akses cepat tapi
-			tidak makan tempat.
-		</p>
+		<p class="text-sm">{COPY_TEXT.PWA_INSTALL_UI_DIALOG}</p>
 		<div class="flex justify-end mt-4 -mb-1">
-			<button
-				class="notif__btn"
-				on:click={() => {
-					offlineNoticeDismissed = true;
-				}}>Tutup</button
-			>
+			<!-- prettier-ignore -->
+			<button class="notif__btn" on:click={() => { offlineNoticeDismissed = true }} >
+				{COPY_TEXT.PWA_ACTION_CLOSE_DIALOG}
+			</button>
 			{#if deferredPrompt}
-				<button class="notif__btn" on:click={handleA2HS}>Install</button>
+				<button class="notif__btn" on:click={handleA2HS}>{COPY_TEXT.PWA_ACTION_INSTALL}</button>
 			{/if}
 		</div>
 	</div>
