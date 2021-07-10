@@ -8,11 +8,11 @@
 	import { Header, Footer } from "../components";
 	import { page } from "$app/stores";
 	import { COPY_TEXT } from "$lib/constants";
+	import { userSettings } from "$lib/stores";
 
 	let headerMode: "FULL" | "COMPACT" = "COMPACT";
 
 	let offlineReady = false;
-	let offlineNoticeDismissed = false;
 	let deferredPrompt: BeforeInstallPromptEvent;
 
 	onMount(() => {
@@ -52,12 +52,16 @@
 		});
 	});
 
+	const updateNoticeDismissed = () => {
+		$userSettings.offlineNoticeDismissed = true;
+	};
+
 	const handleA2HS = async () => {
 		const promptEvent = deferredPrompt;
 		if (!promptEvent) return;
 		promptEvent.prompt();
 		const choice = await promptEvent.userChoice;
-		if (choice.outcome == "accepted") offlineNoticeDismissed = true;
+		if (choice.outcome == "accepted") updateNoticeDismissed();
 		deferredPrompt = null;
 	};
 
@@ -89,12 +93,11 @@
 <slot />
 <Footer />
 
-{#if offlineReady && !offlineNoticeDismissed}
+{#if offlineReady && !$userSettings.offlineNoticeDismissed}
 	<div aria-live="polite" class="notif" in:fly={{ y: 80, duration: 1000, delay: 1000 }} out:fade>
 		<p class="text-sm">{COPY_TEXT.PWA_INSTALL_UI_DIALOG}</p>
 		<div class="flex justify-end mt-4 -mb-1">
-			<!-- prettier-ignore -->
-			<button class="notif__btn" on:click={() => { offlineNoticeDismissed = true }} >
+			<button class="notif__btn" on:click={updateNoticeDismissed}>
 				{COPY_TEXT.PWA_ACTION_CLOSE_DIALOG}
 			</button>
 			{#if deferredPrompt}

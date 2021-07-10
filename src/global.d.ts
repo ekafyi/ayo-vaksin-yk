@@ -139,3 +139,7 @@ declare global {
 		beforeinstallprompt: BeforeInstallPromptEvent;
 	}
 }
+
+interface IUserSettings {
+	offlineNoticeDismissed: boolean;
+}
