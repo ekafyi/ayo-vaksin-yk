@@ -11,7 +11,7 @@
 		<button>dark</button>
 	</nav> -->
 		<h1 class="font-bold text-4xl md:text-5xl">
-			<a class="text-indigo-600" href="/">{HEADING_TEXT.title}</a>
+			<a class="home-header-link text-indigo-600" href="/">{HEADING_TEXT.title}</a>
 			<small class="block mt-2 font-medium text-lg sm:text-xl leading-tight text-gray-500">
 				{HEADING_TEXT.subtitle}
 			</small>
@@ -28,3 +28,11 @@
 		</a>
 	</header>
 {/if}
+
+<style>
+	.home-header-link:hover:after,
+	.home-header-link:focus:after {
+		content: "😾";
+		margin-left: 0.25em;
+	}
+</style>
