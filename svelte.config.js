@@ -22,6 +22,7 @@ const prerenderPages = [
 	"/di/rs-siloam",
 	"/di/rs-uad",
 	"/di/rsa-ugm",
+	"/di/rskia-arvita-bunda",
 	"/di/rskia-pku-muhammadiyah-kotagede",
 	"/di/rsup-dr-sardjito",
 ];
