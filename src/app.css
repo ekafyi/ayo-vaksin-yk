@@ -52,6 +52,10 @@
 		@apply text-gray-600 border-gray-200;
 	}
 
+	.cv-mini-btn {
+		@apply py-0.5 px-2 text-center text-indigo-700 border border-indigo-700 hover:bg-indigo-700 focus:bg-indigo-700 hover:text-white focus:text-white rounded text-xs font-medium;
+	}
+
 	.cv-inline-link {
 		@apply border-b font-medium text-indigo-600 border-gray-400 hover:border-indigo-600 focus:border-indigo-600;
 	}

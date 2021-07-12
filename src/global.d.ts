@@ -112,6 +112,11 @@ type PropsInList = | "id" | "name" | "city" | "phone" | "ageGroups" | "requireme
 
 type ILocationInList = Pick<ILocationFull, PropsInList>;
 
+interface IClinic {
+	name: string;
+	address: string;
+}
+
 // = = = =
 // = = = =
 

@@ -115,7 +115,7 @@
 							<section class="list-with-cta" aria-label="formulir">
 								<span>📱</span>
 								<p>{location.registerLinks.form.replace("https://", "").replace("http://", "")}</p>
-								<a class="list__item-cta" href={location.registerLinks.form}>Buka</a>
+								<a class="list__item-cta cv-mini-btn" href={location.registerLinks.form}>Buka</a>
 							</section>
 						{/if}
 						{#if location.registerLinks.phone}
@@ -279,7 +279,7 @@
 		margin-left: 0.25rem;
 	}
 	.list__item-cta {
-		@apply -mt-px py-0.5 px-2 text-center text-indigo-700 border border-indigo-700 hover:bg-indigo-700 focus:bg-indigo-700 hover:text-white focus:text-white rounded text-xs font-medium w-16;
+		@apply -mt-px w-16;
 	}
 	.list__item-cta::after {
 		content: "";
