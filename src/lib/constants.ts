@@ -12,7 +12,7 @@ export const HEAD_META = {
 
 export const PROVINCE_NAME = "DI Yogyakarta"; // hardcoded heheheh
 
-export const SEMUA_DOMISILI_TAG_NAME = "18+ semua domisili";
+export const SEMUA_DOMISILI_TAG_NAMES = ["18+ semua domisili", "50+ semua domisili"];
 
 export const OPTION_CITIES = ["Sleman", "Kota Yogyakarta", "Bantul"];
 

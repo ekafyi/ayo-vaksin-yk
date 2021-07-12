@@ -1,4 +1,4 @@
-import { SEMUA_DOMISILI_TAG_NAME, AGE_GROUP_KEYS } from "$lib/constants";
+import { SEMUA_DOMISILI_TAG_NAMES, AGE_GROUP_KEYS } from "$lib/constants";
 import { makePhoneObject, makeWAObject } from "./format-phone";
 
 export const transformLocationData = (items: IAirtableLocation[]): ILocationInList[] => {
@@ -30,6 +30,11 @@ export const transformLocationData = (items: IAirtableLocation[]): ILocationInLi
 			if (requirement?.length) ageGroups.push(AGE_GROUP_KEYS[i]);
 		});
 
+		// Check for "KTP semua domisili tanpa syarat". (quick hack, tidy up later)
+		const ktpAnyLocation =
+			(item.requirement_18?.length && item.requirement_18.includes(SEMUA_DOMISILI_TAG_NAMES[0])) ||
+			(item.requirement_50?.length && item.requirement_50.includes(SEMUA_DOMISILI_TAG_NAMES[1]));
+
 		// =======
 
 		return {
@@ -54,9 +59,7 @@ export const transformLocationData = (items: IAirtableLocation[]): ILocationInLi
 				"18_TO_49": item.requirement_18 || [],
 				"50_UP": item.requirement_50 || [],
 			},
-			// TODO (later) loop through all ages requirement
-			ktpAnyLocation:
-				item.requirement_18?.length && item.requirement_18.includes(SEMUA_DOMISILI_TAG_NAME),
+			ktpAnyLocation,
 			requirementDetails: {
 				ktp: item.requirement_ktp || undefined,
 				work: item.requirement_work || undefined,

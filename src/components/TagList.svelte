@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SEMUA_DOMISILI_TAG_NAME } from "$lib/constants";
+	import { SEMUA_DOMISILI_TAG_NAMES } from "$lib/constants";
 
 	export let requirements: ILocationFull["requirementsByAgeGroup"];
 </script>
@@ -9,10 +9,11 @@
 {/each}
 {#each requirements["18_TO_49"] as requirement}
 	<!-- prettier-ignore -->
-	<span class={`tag ${ requirement == SEMUA_DOMISILI_TAG_NAME ? "tag--green capitalize" : "tag--default" }`}>{requirement}</span>
+	<span class={`tag ${ SEMUA_DOMISILI_TAG_NAMES.includes(requirement) ? "tag--green capitalize" : "tag--default" }`}>{requirement}</span>
 {/each}
 {#each requirements["50_UP"] as requirement}
-	<span class="tag tag--default">{requirement}</span>
+	<!-- prettier-ignore -->
+	<span class={`tag ${ SEMUA_DOMISILI_TAG_NAMES.includes(requirement) ? "tag--green capitalize" : "tag--default" }`}>{requirement}</span>
 {/each}
 
 <style lang="postcss">
