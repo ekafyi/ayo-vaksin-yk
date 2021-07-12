@@ -5,12 +5,13 @@
 interface IAirtableLocation {
 	city: string;
 	created_at: string;
-	date_end?: string;
+	date_close?: string;
 	daily_quota?: number;
 	days?: string[];
 	gmap_url?: string;
 	hours?: string;
 	id: string;
+	location_type?: LocationType[];
 	manufacturer?: string[];
 	name: string;
 	register_how_to?: string[];
@@ -37,6 +38,8 @@ interface IAirtableLocation {
 // = = = =
 // = = = =
 
+type LocationType = "Puskesmas" | "Faskes lain";
+
 type RegistrationOption = "Daftar di lokasi" | "Daftar online atau telepon";
 
 type AgeGroupKey = "12_TO_17" | "18_TO_49" | "50_UP";
@@ -60,6 +63,7 @@ interface ILocationFull {
 	gmapUrl?: string;
 	phone?: IContactLink;
 	address?: string;
+	type?: LocationType;
 	// website?: string; // belom bisa scrape
 
 	// registration info
@@ -104,7 +108,7 @@ interface ILocationFull {
 }
 
 // prettier-ignore
-type PropsInList = | "id" | "name" | "city" | "phone" | "ageGroups" | "requirementsByAgeGroup" | "ktpAnyLocation" | "canRegister" | "days";
+type PropsInList = | "id" | "name" | "city" | "phone" | "ageGroups" | "requirementsByAgeGroup" | "ktpAnyLocation" | "canRegister" | "days" | "type";
 
 type ILocationInList = Pick<ILocationFull, PropsInList>;
 

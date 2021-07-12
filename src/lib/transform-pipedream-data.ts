@@ -39,7 +39,7 @@ export const transformLocationData = (items: IAirtableLocation[]): ILocationInLi
 			gmapUrl: item.gmap_url || undefined,
 			phone,
 			address,
-			canRegister: !!(!item.date_end || new Date() <= new Date(item.date_end)),
+			canRegister: !!(!item.date_close || new Date() <= new Date(item.date_close)),
 			registrations: item.register_how_to || [],
 			registerNote: item.register_note || undefined,
 			registerLinks: {
