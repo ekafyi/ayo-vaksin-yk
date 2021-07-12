@@ -34,7 +34,7 @@
 	import { OPTION_CITIES, OPTION_AGES } from "$lib/constants";
 	import { LocationList } from "../components";
 	import FilterButton from "../components/FilterButton.svelte";
-	import { SLUGIFY_OPTIONS } from "$lib/constants";
+	import { SLUGIFY_OPTIONS, HEADING_TEXT } from "$lib/constants";
 	import { userSettings } from "$lib/stores";
 
 	export let locations: ILocationInList[] = [];
@@ -86,6 +86,10 @@
 
 	// $: console.log("🍏", $state.value);
 </script>
+
+<svelte:head>
+	<title>{HEADING_TEXT.title}</title>
+</svelte:head>
 
 <main class="cv-page-outer">
 	<nav class="pb-4 sm:pt-4 border-b" aria-label="Filter lokasi">
