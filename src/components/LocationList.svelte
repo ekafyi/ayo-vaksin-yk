@@ -15,7 +15,7 @@
 	>
 		<a
 			id={`alabel-${loc.id}`}
-			class="location__name"
+			class={`location__name ${loc.type ? `location__name--${loc.type.toLowerCase()}` : ""}`}
 			href={`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`}
 			sveltekit:prefetch
 		>
@@ -49,6 +49,10 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
+	}
+	.location__name--puskesmas::before {
+		content: "📁";
+		margin-right: 0.5em;
 	}
 	.location__desc {
 		@apply text-sm text-gray-600;

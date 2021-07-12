@@ -25,8 +25,7 @@
 
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { TagList } from "../../components";
-	import EmbedInstagram from "../../components/EmbedInstagram.svelte";
+	import { TagList, EmbedInstagram, PuskesmasList } from "../../components";
 	import { PROVINCE_NAME, HEADING_TEXT } from "$lib/constants";
 
 	export let location: ILocationFull;
@@ -140,13 +139,12 @@
 											c5.577,5.577,11.873,8.323,17.45,2.746l1.758-1.758C48.048,40.341,48.243,39.042,47.683,37.985z"/>
 									</svg>
 								</span>
-								<!-- <span>{`WA ${location.registerLinks.whatsapp.text}`}</span> -->
 								<span>{location.registerLinks.whatsapp.text}</span>
 								<a class="list__item-cta" href={location.registerLinks.whatsapp.url}>Kirim</a>
 							</section>
 						{/if}
 						{#if location.registerNote}
-							<div class="text-gray-700 text-xs whitespace-pre-line mt-1">
+							<div class="text-gray-700 text-xs whitespace-pre-line max-w-xl mt-1">
 								{location.registerNote}
 							</div>
 						{/if}
@@ -228,6 +226,10 @@
 						</div>
 					{/if}
 				</section>
+			{/if}
+
+			{#if location.type && location.type == "Puskesmas"}
+				<PuskesmasList />
 			{/if}
 		</div>
 	{:else}

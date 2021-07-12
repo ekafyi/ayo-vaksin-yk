@@ -21,11 +21,12 @@ interface IMyOutput {
 }
 
 export const get = async (): Promise<IMyOutput> => {
-	// if (dev)
-	// 	return {
-	// 		status: 200,
-	// 		body: { payload: [] },
-	// 	};
+	// FIXME ntar balikin
+	if (dev)
+		return {
+			status: 200,
+			body: { payload: [] },
+		};
 
 	const res = await fetch(PIPEDREAM_API_URL);
 	if (res.ok) {
