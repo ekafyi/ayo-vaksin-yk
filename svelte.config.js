@@ -25,6 +25,7 @@ const prerenderPages = [
 	"/di/rskia-arvita-bunda",
 	"/di/rskia-pku-muhammadiyah-kotagede",
 	"/di/rsup-dr-sardjito",
+	"/di/sentra-vaksinasi-kabupaten-bantul",
 ];
 // const prerenderPages = [];
 
