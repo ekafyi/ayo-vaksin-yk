@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import { browser } from "$app/env";
 
 // Customize fallback initial data if no localStorage data.
-const DEFAULT_USER_SETTINGS = { offlineNoticeDismissed: false };
+const DEFAULT_USER_SETTINGS = { offlineNoticeDismissed: false, hasPrefetched: false };
 
 // Get the value out of storage on load.
 let initialData: IUserSettings = DEFAULT_USER_SETTINGS;

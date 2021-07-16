@@ -52,11 +52,27 @@
 		@apply text-gray-600 border-gray-200;
 	}
 
+	.cv-mini-btn {
+		@apply py-0.5 px-2 text-center text-indigo-700 border border-indigo-700 hover:bg-indigo-700 focus:bg-indigo-700 hover:text-white focus:text-white rounded text-xs font-medium;
+	}
+
 	.cv-inline-link {
 		@apply border-b font-medium text-indigo-600 border-gray-400 hover:border-indigo-600 focus:border-indigo-600;
 	}
 
 	.cv-misc-page__title {
 		@apply font-semibold text-3xl sm:text-4xl leading-tight mb-8 sm:mt-2;
+	}
+
+	.cv-loc-page__title {
+		@apply font-semibold text-2xl sm:text-3xl leading-tight mb-4;
+	}
+	.cv-loc-page__list-container {
+		@apply grid gap-3 text-sm;
+	}
+
+	.cv-list-no-cta {
+		@apply grid gap-x-2 gap-y-3;
+		grid-template-columns: 1rem 1fr;
 	}
 }

@@ -17,7 +17,6 @@ export const get: RequestHandler = async ({ params }) => {
 		const readRes = await res.json();
 		if (readRes.payload)
 			return {
-				status: 200,
 				body: {
 					payload: transformLocationData(readRes.payload)[0],
 				},

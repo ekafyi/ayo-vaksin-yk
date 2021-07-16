@@ -5,6 +5,11 @@
 
 	export let locations: ILocationInList[] = [];
 
+	const makeSlug = (name: string, type: string = null) => {
+		const path = type && type.toLowerCase() == "puskesmas" ? "p" : "di";
+		return `/${path}/${slugify(name, SLUGIFY_OPTIONS)}`;
+	};
+
 	// $: console.log("loc length?", locations);
 </script>
 
@@ -15,8 +20,8 @@
 	>
 		<a
 			id={`alabel-${loc.id}`}
-			class="location__name"
-			href={`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`}
+			class={`location__name ${loc.type ? `location__name--${loc.type.toLowerCase()}` : ""}`}
+			href={makeSlug(loc.name, loc.type)}
 			sveltekit:prefetch
 		>
 			{`${loc.name} ${loc.canRegister ? "" : " ⛔️"}`}
@@ -49,6 +54,10 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
+	}
+	.location__name--puskesmas::before {
+		content: "📁";
+		margin-right: 0.5em;
 	}
 	.location__desc {
 		@apply text-sm text-gray-600;

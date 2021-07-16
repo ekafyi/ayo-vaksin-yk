@@ -1,4 +1,10 @@
+export { default as EmbedInstagram } from "./EmbedInstagram.svelte";
 export { default as Header } from "./Header.svelte";
 export { default as Footer } from "./Footer.svelte";
+export { default as ListItemWithCta } from "./ListItemWithCta.svelte";
 export { default as LocationList } from "./LocationList.svelte";
+export { default as LocDetailSection } from "./LocDetailSection.svelte";
+export { default as PuskesmasList } from "./PuskesmasList.svelte";
+export { default as RequirementList } from "./RequirementList.svelte";
+export { default as RegistrationList } from "./RegistrationList.svelte";
 export { default as TagList } from "./TagList.svelte";
