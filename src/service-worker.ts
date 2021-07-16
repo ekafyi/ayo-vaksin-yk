@@ -60,6 +60,7 @@ registerRoute(
 		url.pathname == START_URL ||
 		url.pathname.startsWith("/api/") ||
 		url.pathname.startsWith("/di/") ||
+		url.pathname.startsWith("/p/") ||
 		request.destination == "document",
 	new StaleWhileRevalidate({
 		cacheName: "cv-routes",

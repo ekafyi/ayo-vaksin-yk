@@ -63,4 +63,16 @@
 	.cv-misc-page__title {
 		@apply font-semibold text-3xl sm:text-4xl leading-tight mb-8 sm:mt-2;
 	}
+
+	.cv-loc-page__title {
+		@apply font-semibold text-2xl sm:text-3xl leading-tight mb-4;
+	}
+	.cv-loc-page__list-container {
+		@apply grid gap-3 text-sm;
+	}
+
+	.cv-list-no-cta {
+		@apply grid gap-x-2 gap-y-3;
+		grid-template-columns: 1rem 1fr;
+	}
 }

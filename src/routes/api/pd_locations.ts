@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // import type { RequestHandler, EndpointOutput } from "@sveltejs/kit";
 import dotenv from "dotenv";
-import { dev } from "$app/env";
 import { transformLocationData } from "$lib/transform-pipedream-data";
+// import { dev } from "$app/env";
 
 dotenv.config();
 
@@ -21,18 +21,15 @@ interface IMyOutput {
 }
 
 export const get = async (): Promise<IMyOutput> => {
-	// FIXME ntar balikin
-	if (dev)
-		return {
-			status: 200,
-			body: { payload: [] },
-		};
+	// if (dev)
+	// 	return {
+	// 		body: { payload: [] },
+	// 	};
 
 	const res = await fetch(PIPEDREAM_API_URL);
 	if (res.ok) {
 		const readRes = await res.json();
 		return {
-			status: 200,
 			body: {
 				payload: transformLocationData(readRes.payload),
 			},
