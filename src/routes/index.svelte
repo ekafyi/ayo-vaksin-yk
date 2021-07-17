@@ -1,14 +1,10 @@
 <script lang="ts" context="module">
 	import type { Load } from "@sveltejs/kit";
 
-	let storedPayload;
-
 	export const load: Load = async ({ page, fetch, session, context }) => {
-		if (storedPayload) return { props: { locations: storedPayload } }; // heheheh
 		const res = await fetch(`/api/pd_locations`);
 		if (res.ok) {
 			const { payload } = await res.json();
-			storedPayload = payload; // heheheh lagi
 			return {
 				props: { locations: payload },
 			};
@@ -25,17 +21,18 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { prefetch, prefetchRoutes } from "$app/navigation";
-	import slugify from "slugify";
+	import { browser } from "$app/env";
 	import { createMachine } from "xstate";
 	import { useMachine } from "@xstate/svelte";
 	import { vaxMachineConfig, vaxMachineOptions, vaxModel } from "$lib/machines/vaxMachine";
 	import { OPTION_CITIES, OPTION_AGES } from "$lib/constants";
 	import { LocationList } from "../components";
 	import FilterButton from "../components/FilterButton.svelte";
-	import { SLUGIFY_OPTIONS, HEADING_TEXT } from "$lib/constants";
-	import { userSettings } from "$lib/stores";
+	import { HEADING_TEXT } from "$lib/constants";
+
+	// import { onMount } from "svelte";
+	// import { prefetch, prefetchRoutes } from "$app/navigation";
+	// import { userSettings } from "$lib/stores";
 
 	export let locations: ILocationInList[] = [];
 
@@ -68,21 +65,21 @@
 		});
 	};
 
-	onMount(async () => {
-		prefetchRoutes(
-			locations
-				.map((loc) => [
-					`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`,
-					`/api/pd_location_${slugify(loc.name, SLUGIFY_OPTIONS)}`,
-				])
-				.flat()
-		).then(() => {
-			$userSettings.hasPrefetched = true;
-		});
-
-		// not sure if i should use `prefetch` for server-rendered routes and/or API routes?
-		// also prefetch still has this issue: https://github.com/sveltejs/kit/issues/1605
-	});
+	// TODO move to LocationList?
+	// onMount(async () => {
+	// 	prefetchRoutes(
+	// 		locations
+	// 			.map((loc) => [
+	// 				`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`,
+	// 				`/api/pd_location_${slugify(loc.name, SLUGIFY_OPTIONS)}`,
+	// 			])
+	// 			.flat()
+	// 	).then(() => {
+	// 		$userSettings.hasPrefetched = true;
+	// 	});
+	// 	// not sure if i should use `prefetch` for server-rendered routes and/or API routes?
+	// 	// also prefetch still has this issue: https://github.com/sveltejs/kit/issues/1605
+	// });
 
 	// $: console.log("🍏", $state.value);
 </script>
@@ -138,14 +135,21 @@
 	</nav>
 
 	<div class="my-2 -mx-4">
-		{#if $state.context.locations.length}
-			<LocationList locations={$state.context.locations} />
+		{#if browser}
+			{#if $state.context.locations.length}
+				<LocationList locations={$state.context.locations} />
+			{:else}
+				<div class:no-content--loading={$state.value === "loading"} class="no-content">
+					<p class="text-gray-700 text-center text-sm p-4">
+						{$state.value === "loading" ? "Memuat..." : "Tidak ditemukan."}
+					</p>
+				</div>
+			{/if}
 		{:else}
-			<div class:no-content--loading={$state.value === "loading"} class="no-content">
-				<p class="text-gray-700 text-center text-sm p-4">
-					{$state.value === "loading" ? "Memuat..." : "Tidak ditemukan."}
-				</p>
-			</div>
+			<!-- server-rendered HTML fallback without xstate -->
+			<LocationList {locations} />
+			<!-- penasaran -->
+			<!-- <Foo {locations} /> -->
 		{/if}
 	</div>
 </main>

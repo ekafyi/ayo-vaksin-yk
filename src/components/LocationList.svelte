@@ -1,14 +1,8 @@
 <script lang="ts">
-	import slugify from "slugify";
-	import { SLUGIFY_OPTIONS } from "$lib/constants";
+	import { makeSlug } from "$lib/slug";
 	import TagList from "./TagList.svelte";
 
 	export let locations: ILocationInList[] = [];
-
-	const makeSlug = (name: string, type: string = null) => {
-		const path = type && type.toLowerCase() == "puskesmas" ? "p" : "di";
-		return `/${path}/${slugify(name, SLUGIFY_OPTIONS)}`;
-	};
 
 	// $: console.log("loc length?", locations);
 </script>
@@ -19,9 +13,9 @@
 		aria-labelledby={`alabel-${loc.id}`}
 	>
 		<a
-			id={`alabel-${loc.id}`}
-			class={`location__name ${loc.type ? `location__name--${loc.type.toLowerCase()}` : ""}`}
 			href={makeSlug(loc.name, loc.type)}
+			class={`location__name ${loc.type ? `location__name--${loc.type.toLowerCase()}` : ""}`}
+			id={`alabel-${loc.id}`}
 			sveltekit:prefetch
 		>
 			{`${loc.name} ${loc.canRegister ? "" : " ⛔️"}`}
