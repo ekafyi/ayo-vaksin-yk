@@ -39,6 +39,7 @@ export const transformLocationData = (items: IAirtableLocation[]): ILocationInLi
 
 		return {
 			id: item.id,
+			updatedAt: item.updated_at,
 			name: item.name,
 			city: item.city,
 			gmapUrl: item.gmap_url || undefined,

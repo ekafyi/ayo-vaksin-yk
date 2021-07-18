@@ -7,4 +7,5 @@ export { default as LocDetailSection } from "./LocDetailSection.svelte";
 export { default as PuskesmasList } from "./PuskesmasList.svelte";
 export { default as RequirementList } from "./RequirementList.svelte";
 export { default as RegistrationList } from "./RegistrationList.svelte";
+export { default as UpdatedAtText } from "./UpdatedAtText.svelte";
 export { default as TagList } from "./TagList.svelte";

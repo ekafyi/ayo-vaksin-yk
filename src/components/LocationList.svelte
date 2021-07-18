@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { makeSlug } from "$lib/slug";
 	import TagList from "./TagList.svelte";
+	import UpdatedAtText from "./UpdatedAtText.svelte";
 
 	export let locations: ILocationInList[] = [];
 
@@ -54,6 +55,8 @@
 		<div class="location__tag-list">
 			<TagList requirements={loc.requirementsByAgeGroup} />
 		</div>
+
+		{#if loc.updatedAt}<UpdatedAtText utcDateString={loc.updatedAt} spacingCss="mt-2" />{/if}
 	</article>
 {/each}
 
