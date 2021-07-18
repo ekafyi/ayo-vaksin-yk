@@ -4,13 +4,11 @@
 /** Airtable data returned via pipedream API */
 interface IAirtableLocation {
 	city: string;
-	created_at: string;
 	date_close?: string;
 	daily_quota?: number;
 	days?: string[];
 	gmap_url?: string;
 	hours?: string;
-	id: string;
 	location_type?: LocationType[];
 	manufacturer?: string[];
 	name: string;
@@ -33,6 +31,16 @@ interface IAirtableLocation {
 	source_publish_date?: string;
 	source_url?: string;
 	updated_at?: string;
+}
+
+interface IPipedreamAirtableLocation extends IAirtableLocation {
+	id: string;
+	created_at: string;
+}
+
+interface IAirtableRowLocation {
+	id: string;
+	fields: IAirtableLocation;
 }
 
 // = = = =

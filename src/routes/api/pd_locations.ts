@@ -1,3 +1,4 @@
+// !! NOT USED, replaced with /api/locations
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // import type { RequestHandler, EndpointOutput } from "@sveltejs/kit";
