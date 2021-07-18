@@ -27,22 +27,16 @@ Sebisa mungkin saya melakukan crosscheck informasi dan melampirkan sumber akun r
 
 Website ini hanya menampilkan vaksin gratis dari fasilitas kesehatan atau instansi resmi.
 
-### Kenapa tidak ada Puskesmas?
-
-Untuk saat ini, website ini berfokus pada faskes *selain* Puskesmas karena umumnya masing-masing Puskesmas melayani warga yang ber-KTP atau keterangan domisili wilayah tersebut. Silakan cari dan hubungi Puskesmas terdekat di lokasimu untuk informasi vaksin.
-
-Pada kenyataannya, Puskesmas punya keterbatasan dalam melayani warga, baik dari kuota atau regulasi daerah. Faskes-faskes di website ini dapat menjadi alternatif peminat vaksin yang belum terakomodasi Puskesmas terdekat.
-
 
 ## Roadmap
 
 Konten:
 - Melengkapi informasi Kab. Bantul, Kulon Progo, Gunungkidul
 
-Rencana fitur:
+Fitur:
+- [x] Halaman Puskesmas
 - *(tentatif)* User dapat submit lokasi baru
 - *(tentatif)* Share (kirim atau simpan ke aplikasi ponsel, cth. Notes)
-- *(tentatif)* Halaman Puskesmas (cari Puskesmas terdekat dari user)
 - *(tentatif)* Push notifikasi jika ada lokasi baru
 - *(tentatif)* Sortir berdasarkan tanggal update terbaru
 
@@ -56,8 +50,7 @@ Website ini menggunakan Airtable sebagai sumber data dan Pipedream untuk mempros
 - SvelteKit — UI framework
 - XState — state management
 - Netlify — hosting + CI/CD
-- Pipedream — magic~ 🎩✨ 
-- Workbox — PWA caching strategies
+- Workbox — PWA caching
 - Tailwind, TypeScript
 
 
