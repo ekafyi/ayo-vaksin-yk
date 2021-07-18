@@ -22,13 +22,14 @@
 			// not used right now, leave for future stuff eg. push notif
 			let registration: ServiceWorkerRegistration | null;
 
-			wb.addEventListener("activated", (event) => {
+			wb.addEventListener("activated", async (event) => {
 				console.log("~~~ ✨ WB activated ~~~", event.isUpdate ? "" : "🐥 first time");
 				// see: https://developers.google.com/web/tools/workbox/modules/workbox-window#example-first-active
 				if (!event.isUpdate) offlineReady = true;
 			});
 
 			// Leave for debugging.
+			// see: https://developers.google.com/web/tools/workbox/modules/workbox-window#the_very_first_time_a_service_worker_is_installed
 			const WB_EVENTS = ["installing", "installed", "waiting", "activating", "controlling", "redundant"]; // prettier-ignore
 			WB_EVENTS.forEach((wbEvent) => {
 				wb.addEventListener(wbEvent as keyof WorkboxLifecycleEventMap, (event) => {

@@ -4,7 +4,27 @@
 
 	export let locations: ILocationInList[] = [];
 
-	// $: console.log("loc length?", locations);
+	// = = = = =
+
+	// Re-enable if needed + does not break SW caching
+
+	// import { onMount } from "svelte";
+	// import { prefetch } from "$app/navigation";
+	// import { userSettings } from "$lib/stores";
+
+	// Running prefetch outside onMount/without timeout fails due to this issue: https://github.com/sveltejs/kit/issues/1605
+	// prefetchRoutes does not work(?).
+	// onMount(() => {
+	// 	let urls = ["/", ...locations.map((loc) => makeSlug(loc.name, loc.type))];
+	// 	setTimeout(() => {
+	// 		Promise.all(urls.map((url) => prefetch(url)))
+	// 			.then((responses) => {
+	// 				console.log("prefetched???", responses);
+	// 				$userSettings.hasPrefetched = true;
+	// 			})
+	// 			.catch((err) => { console.error(err) }); // prettier-ignore
+	// 	}, 200);
+	// });
 </script>
 
 {#each locations as loc}

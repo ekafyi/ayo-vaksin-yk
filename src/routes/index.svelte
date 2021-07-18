@@ -26,13 +26,11 @@
 	import { useMachine } from "@xstate/svelte";
 	import { vaxMachineConfig, vaxMachineOptions, vaxModel } from "$lib/machines/vaxMachine";
 	import { OPTION_CITIES, OPTION_AGES } from "$lib/constants";
+	import { makeSlug } from "$lib/slug";
+	import { userSettings } from "$lib/stores";
 	import { LocationList } from "../components";
 	import FilterButton from "../components/FilterButton.svelte";
 	import { HEADING_TEXT } from "$lib/constants";
-
-	// import { onMount } from "svelte";
-	// import { prefetch, prefetchRoutes } from "$app/navigation";
-	// import { userSettings } from "$lib/stores";
 
 	export let locations: ILocationInList[] = [];
 
@@ -65,22 +63,17 @@
 		});
 	};
 
-	// TODO move to LocationList?
-	// onMount(async () => {
-	// 	prefetchRoutes(
-	// 		locations
-	// 			.map((loc) => [
-	// 				`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`,
-	// 				`/api/pd_location_${slugify(loc.name, SLUGIFY_OPTIONS)}`,
-	// 			])
-	// 			.flat()
-	// 	).then(() => {
-	// 		$userSettings.hasPrefetched = true;
-	// 	});
-	// 	// not sure if i should use `prefetch` for server-rendered routes and/or API routes?
-	// 	// also prefetch still has this issue: https://github.com/sveltejs/kit/issues/1605
-	// });
-
+	// TODO (low priority) figure out where to run this
+	// ?? should be in SW install event instead?
+	if (browser && typeof window == "object") {
+		let urls = ["/", ...locations.map((loc) => makeSlug(loc.name, loc.type))];
+		window.caches
+			.open("cv-routes")
+			.then((cache) => cache.addAll(urls))
+			.then(() => { $userSettings.hasPrefetched = true })
+			.catch((err) => { console.error(err) }); // prettier-ignore
+	}
+	////
 	// $: console.log("🍏", $state.value);
 </script>
 

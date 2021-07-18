@@ -11,6 +11,18 @@ const { PIPEDREAM_API_URL } = process.env; // must be destructured, else strippe
 export const get: RequestHandler = async ({ params }) => {
 	const { slug } = params;
 
+	//!!
+	return {
+		body: {
+			payload: {
+				id: slug,
+				name: "foo",
+				city: "Kota Yogyakarta",
+			},
+		},
+	};
+	//!!
+
 	const url = `${PIPEDREAM_API_URL}?slug=${slug}`;
 	const res = await fetch(url);
 	if (res.ok) {
