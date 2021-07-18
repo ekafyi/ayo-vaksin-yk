@@ -108,7 +108,7 @@ interface ILocationFull {
 }
 
 // prettier-ignore
-type PropsInList = | "id" | "name" | "city" | "phone" | "ageGroups" | "requirementsByAgeGroup" | "ktpAnyLocation" | "canRegister" | "days" | "type";
+type PropsInList = | "id" | "updatedAt" | "name" | "city" | "phone" | "ageGroups" | "requirementsByAgeGroup" | "ktpAnyLocation" | "canRegister" | "days" | "type";
 
 type ILocationInList = Pick<ILocationFull, PropsInList>;
 

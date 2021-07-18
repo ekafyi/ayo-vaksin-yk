@@ -94,7 +94,7 @@
 <slot />
 <Footer />
 
-{#if offlineReady && !$userSettings.offlineNoticeDismissed}
+{#if browser && offlineReady && !$userSettings.offlineNoticeDismissed}
 	<div aria-live="polite" class="notif" in:fly={{ y: 80, duration: 1000, delay: 1000 }} out:fade>
 		<p class="text-sm">{COPY_TEXT.PWA_INSTALL_UI_DIALOG}</p>
 		<div class="flex justify-end mt-4 -mb-1">
