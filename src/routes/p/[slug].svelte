@@ -1,5 +1,8 @@
 <script lang="ts" context="module">
 	import type { Load } from "@sveltejs/kit";
+	import { browser } from "$app/env";
+
+	export const router = browser;
 
 	export const load: Load = async ({ page, fetch, session, context }) => {
 		const slug = page.params.slug;
