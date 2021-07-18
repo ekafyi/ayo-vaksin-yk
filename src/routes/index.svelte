@@ -14,7 +14,7 @@
 			// Returning any object with no error prop = rendering the HTML shell without props data (ie. location).
 			status: res.status, // Default to 500 if not returned, but not seemed to be passed anywhere.
 
-			// Returning object with "error" prop = rendering adjacemt __error component.
+			// Returning object with "error" prop = rendering __error component from the closest dir level.
 			error: new Error(`${res.statusText || "Gagal memuat data"}`),
 		};
 	};
