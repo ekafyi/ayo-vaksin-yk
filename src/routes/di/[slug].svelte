@@ -35,6 +35,7 @@
 		RegistrationList,
 		RequirementList,
 		TagList,
+		UpdatedAtText,
 	} from "../../components";
 	import { PROVINCE_NAME, HEADING_TEXT } from "$lib/constants";
 
@@ -62,6 +63,9 @@
 		<h1 class="cv-loc-page__title">
 			{`${location.name} ${location.canRegister ? "" : " ⛔️"}`}
 		</h1>
+		{#if location.updatedAt}
+			<UpdatedAtText utcDateString={location.updatedAt} spacingCss="-mt-2 mb-4" />
+		{/if}
 		<div class="mb-2" aria-label="kelompok usia">
 			<TagList requirements={location.requirementsByAgeGroup} />
 		</div>

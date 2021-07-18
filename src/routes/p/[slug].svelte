@@ -34,13 +34,13 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from "svelte";
 	import {
 		LocDetailSection,
-		TagList,
-		RequirementList,
-		RegistrationList,
 		PuskesmasList,
+		RegistrationList,
+		RequirementList,
+		TagList,
+		UpdatedAtText,
 	} from "../../components";
 	import { HEADING_TEXT } from "$lib/constants";
 
@@ -56,6 +56,9 @@
 <main class="cv-page-outer">
 	{#if location}
 		<h1 class="cv-loc-page__title">{location.name}</h1>
+		{#if location.updatedAt}
+			<UpdatedAtText utcDateString={location.updatedAt} spacingCss="-mt-2 mb-4" />
+		{/if}
 		<div class="mb-2" aria-label="kelompok usia">
 			<TagList requirements={location.requirementsByAgeGroup} />
 		</div>

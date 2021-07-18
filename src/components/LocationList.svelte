@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { makeSlug } from "$lib/slug";
-	import { formatSimpleDate, formatTime } from "$lib/format-datetime";
 	import TagList from "./TagList.svelte";
+	import UpdatedAtText from "./UpdatedAtText.svelte";
 
 	export let locations: ILocationInList[] = [];
 
@@ -56,11 +56,7 @@
 			<TagList requirements={loc.requirementsByAgeGroup} />
 		</div>
 
-		{#if loc.updatedAt}
-			<p class="text-xs italic mt-2 font-semibold text-indigo-800">
-				{`Diperbarui ${formatSimpleDate(loc.updatedAt)} ${formatTime(loc.updatedAt)}`}
-			</p>
-		{/if}
+		{#if loc.updatedAt}<UpdatedAtText utcDateString={loc.updatedAt} spacingCss="mt-2" />{/if}
 	</article>
 {/each}
 
