@@ -1,19 +1,23 @@
 <script lang="ts" context="module">
 	import type { Load } from "@sveltejs/kit";
+	import transformAirtableFields from "$lib/transform-airtable-fields";
 
-	export const load: Load = async ({ page, fetch, session, context }) => {
-		const res = await fetch(`/api/pd_locations`);
+	export const load: Load = async ({ fetch }) => {
+		const res = await fetch(`/api/locations`);
 		if (res.ok) {
-			const { payload } = await res.json();
+			const data: { records: IAirtableRowLocation[] } = await res.json();
+			const rows = data.records.map((row) => ({
+				id: row.id,
+				...transformAirtableFields(row.fields),
+			}));
 			return {
-				props: { locations: payload },
+				props: { locations: rows },
 			};
 		}
 		// Don't send res.text() client-side as it may contain external API URLs.
 		return {
 			// Returning any object with no error prop = rendering the HTML shell without props data (ie. location).
 			status: res.status, // Default to 500 if not returned, but not seemed to be passed anywhere.
-
 			// Returning object with "error" prop = rendering __error component from the closest dir level.
 			error: new Error(`${res.statusText || "Gagal memuat data"}`),
 		};
@@ -65,8 +69,8 @@
 
 	// TODO (low priority) figure out where to run this
 	// ?? should be in SW install event instead?
-	if (browser && typeof window == "object") {
-		let urls = ["/", ...locations.map((loc) => makeSlug(loc.name, loc.type))];
+	if (browser && typeof window == "object" && !$userSettings?.hasPrefetched) {
+		let urls = locations.map((loc) => makeSlug(loc.name, loc.type));
 		window.caches
 			.open("cv-routes")
 			.then((cache) => cache.addAll(urls))

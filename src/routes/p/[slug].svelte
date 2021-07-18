@@ -1,28 +1,43 @@
 <script lang="ts" context="module">
 	import type { Load } from "@sveltejs/kit";
 	import { browser } from "$app/env";
+	import transformAirtableFields from "$lib/transform-airtable-fields";
+	import { getLocationData } from "$lib/get-row-from-all-locations";
 
 	export const router = browser;
 
-	export const load: Load = async ({ page, fetch, session, context }) => {
+	export const load: Load = async ({ page, fetch }) => {
 		const slug = page.params.slug;
 
 		let location;
 
-		return fetch(`/api/pd_location_${slug}`)
+		return fetch(`/api/locations`)
 			.then((res) => res.json())
-			.then((locationData) => {
-				location = locationData.payload;
-				return locationData.payload.city;
+			.then((allLocationsData) => {
+				const locationData = getLocationData(allLocationsData, slug);
+				if (!locationData) return { status: 404 };
+
+				location = {
+					id: locationData[0].id,
+					...transformAirtableFields(locationData[0].fields),
+				};
+				return location.city;
 			})
-			.then((city) => fetch(`/api/pd_clinics?city=${city}`))
+			.then((city) => fetch(`/api/clinics/${city}`))
 			.then((res) => res.json())
-			.then((clinicsData) => ({
-				props: {
-					location,
-					clinics: clinicsData.payload,
-				},
-			}))
+			.then((clinicsData) => {
+				const clinics: IClinic[] =
+					clinicsData.records?.map((item) => ({
+						id: item.id,
+						...item.fields,
+					})) || [];
+				return {
+					props: {
+						location,
+						clinics,
+					},
+				};
+			})
 			.catch((err) => {
 				console.error(err);
 				return {

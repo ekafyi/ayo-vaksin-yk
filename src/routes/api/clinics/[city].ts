@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { RequestHandler } from "@sveltejs/kit";
 import dotenv from "dotenv";
@@ -14,30 +13,20 @@ const queryFields = ["name", "address"];
 // = = = = = = = =
 // = = = = = = = =
 
-export const get: RequestHandler = async ({ query }) => {
-	const city = query.get("city");
+export const get: RequestHandler = async ({ params }) => {
+	const { city } = params;
+	if (!city) return { status: 404 };
 
-	const url = city
-		? `${apiUrl}?${makeFieldsParam(queryFields)}&${makeFilterParam(`city="${city}"`)}`
-		: apiUrl;
+	const url = `${apiUrl}?${makeFieldsParam(queryFields)}&${makeFilterParam(`city="${city}"`)}`;
 
 	return fetch(url, {
 		headers: { Authorization: `Bearer ${AIRTABLE_API_KEY}` },
 	})
 		.then((res) => res.json())
-		.then((data) => {
-			const clinics: IClinic[] =
-				data.records?.map((item) => ({
-					id: item.id,
-					...item.fields,
-				})) || [];
-			return {
-				body: { payload: clinics },
-			};
-		})
+		.then((data) => ({ body: data }))
 		.catch((err) => {
 			console.log(err);
 			return { status: err.status };
 		});
-	// return { status: 200, body: { payload: [{ name: "foo", address: "bar" }] } }; // leave for checking
+	// return { status: 200, body: [{ name: "foo", address: "bar" }] }; // leave for checking
 };
