@@ -3,7 +3,7 @@
 	import { browser } from "$app/env";
 	import transformAirtableFields from "$lib/transform-airtable-fields";
 	import { getLocationData } from "$lib/get-row-from-all-locations";
-
+  
 	export const router = browser;
 
 	export const load: Load = async ({ page, fetch }) => {
