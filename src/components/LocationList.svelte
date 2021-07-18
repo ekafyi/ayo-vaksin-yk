@@ -1,16 +1,30 @@
 <script lang="ts">
-	import slugify from "slugify";
-	import { SLUGIFY_OPTIONS } from "$lib/constants";
+	import { makeSlug } from "$lib/slug";
 	import TagList from "./TagList.svelte";
 
 	export let locations: ILocationInList[] = [];
 
-	const makeSlug = (name: string, type: string = null) => {
-		const path = type && type.toLowerCase() == "puskesmas" ? "p" : "di";
-		return `/${path}/${slugify(name, SLUGIFY_OPTIONS)}`;
-	};
+	// = = = = =
 
-	// $: console.log("loc length?", locations);
+	// Re-enable if needed + does not break SW caching
+
+	// import { onMount } from "svelte";
+	// import { prefetch } from "$app/navigation";
+	// import { userSettings } from "$lib/stores";
+
+	// Running prefetch outside onMount/without timeout fails due to this issue: https://github.com/sveltejs/kit/issues/1605
+	// prefetchRoutes does not work(?).
+	// onMount(() => {
+	// 	let urls = ["/", ...locations.map((loc) => makeSlug(loc.name, loc.type))];
+	// 	setTimeout(() => {
+	// 		Promise.all(urls.map((url) => prefetch(url)))
+	// 			.then((responses) => {
+	// 				console.log("prefetched???", responses);
+	// 				$userSettings.hasPrefetched = true;
+	// 			})
+	// 			.catch((err) => { console.error(err) }); // prettier-ignore
+	// 	}, 200);
+	// });
 </script>
 
 {#each locations as loc}
@@ -19,9 +33,9 @@
 		aria-labelledby={`alabel-${loc.id}`}
 	>
 		<a
-			id={`alabel-${loc.id}`}
-			class={`location__name ${loc.type ? `location__name--${loc.type.toLowerCase()}` : ""}`}
 			href={makeSlug(loc.name, loc.type)}
+			class={`location__name ${loc.type ? `location__name--${loc.type.toLowerCase()}` : ""}`}
+			id={`alabel-${loc.id}`}
 			sveltekit:prefetch
 		>
 			{`${loc.name} ${loc.canRegister ? "" : " ⛔️"}`}

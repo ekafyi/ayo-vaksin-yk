@@ -1,6 +1,6 @@
 <script lang="ts">
 	import slugify from "slugify";
-	import { SLUGIFY_OPTIONS } from "$lib/constants";
+	import { SLUGIFY_OPTIONS } from "$lib/slug";
 
 	export let title: string;
 

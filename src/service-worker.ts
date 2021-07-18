@@ -13,6 +13,13 @@ const OFFLINE_URL = `/offline`;
 
 declare let self: ServiceWorkerGlobalScope;
 
+self.addEventListener("install", (event) => {
+	console.log("!!! SW install !!!");
+	// Activate new service worker as soon as it's finished installing.
+	// see: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#skip_the_waiting_phase
+	event.waitUntil(self.skipWaiting());
+});
+
 self.addEventListener("activate", (event) => {
 	console.log("!!! SW activate !!!", event);
 	// the first time a service worker is installed it will active but not start controlling the page unless `clients.claim()` is called in the service worker.
@@ -20,11 +27,9 @@ self.addEventListener("activate", (event) => {
 	event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("install", (event) => {
-	console.log("!!! SW install !!!");
-	// Activate new service worker as soon as it's finished installing.
-	// see: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#skip_the_waiting_phase
-	event.waitUntil(self.skipWaiting());
+self.addEventListener("message", (event) => {
+	console.log("!!! SW message !!!", event.data);
+	// if (event.data && event.data.type === "SKIP_WAITING") self.skipWaiting();
 });
 
 // ==============

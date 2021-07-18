@@ -29,11 +29,6 @@ export const OPTION_REGISTRATIONS: RegistrationOption[] = [
 	"Daftar online atau telepon",
 ];
 
-export const SLUGIFY_OPTIONS = {
-	lower: true,
-	strict: true,
-};
-
 export const INITIAL_LOC_FILTERS: ILocFilter = {
 	AGE: null,
 	CITY: null,

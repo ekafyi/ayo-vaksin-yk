@@ -1,14 +1,10 @@
 <script lang="ts" context="module">
 	import type { Load } from "@sveltejs/kit";
 
-	let storedPayload;
-
 	export const load: Load = async ({ page, fetch, session, context }) => {
-		if (storedPayload) return { props: { locations: storedPayload } }; // heheheh
 		const res = await fetch(`/api/pd_locations`);
 		if (res.ok) {
 			const { payload } = await res.json();
-			storedPayload = payload; // heheheh lagi
 			return {
 				props: { locations: payload },
 			};
@@ -18,24 +14,23 @@
 			// Returning any object with no error prop = rendering the HTML shell without props data (ie. location).
 			status: res.status, // Default to 500 if not returned, but not seemed to be passed anywhere.
 
-			// Returning object with "error" prop = rendering adjacemt __error component.
+			// Returning object with "error" prop = rendering __error component from the closest dir level.
 			error: new Error(`${res.statusText || "Gagal memuat data"}`),
 		};
 	};
 </script>
 
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { prefetch, prefetchRoutes } from "$app/navigation";
-	import slugify from "slugify";
+	import { browser } from "$app/env";
 	import { createMachine } from "xstate";
 	import { useMachine } from "@xstate/svelte";
 	import { vaxMachineConfig, vaxMachineOptions, vaxModel } from "$lib/machines/vaxMachine";
 	import { OPTION_CITIES, OPTION_AGES } from "$lib/constants";
+	import { makeSlug } from "$lib/slug";
+	import { userSettings } from "$lib/stores";
 	import { LocationList } from "../components";
 	import FilterButton from "../components/FilterButton.svelte";
-	import { SLUGIFY_OPTIONS, HEADING_TEXT } from "$lib/constants";
-	import { userSettings } from "$lib/stores";
+	import { HEADING_TEXT } from "$lib/constants";
 
 	export let locations: ILocationInList[] = [];
 
@@ -68,22 +63,17 @@
 		});
 	};
 
-	onMount(async () => {
-		prefetchRoutes(
-			locations
-				.map((loc) => [
-					`/di/${slugify(loc.name, SLUGIFY_OPTIONS)}`,
-					`/api/pd_location_${slugify(loc.name, SLUGIFY_OPTIONS)}`,
-				])
-				.flat()
-		).then(() => {
-			$userSettings.hasPrefetched = true;
-		});
-
-		// not sure if i should use `prefetch` for server-rendered routes and/or API routes?
-		// also prefetch still has this issue: https://github.com/sveltejs/kit/issues/1605
-	});
-
+	// TODO (low priority) figure out where to run this
+	// ?? should be in SW install event instead?
+	if (browser && typeof window == "object") {
+		let urls = ["/", ...locations.map((loc) => makeSlug(loc.name, loc.type))];
+		window.caches
+			.open("cv-routes")
+			.then((cache) => cache.addAll(urls))
+			.then(() => { $userSettings.hasPrefetched = true })
+			.catch((err) => { console.error(err) }); // prettier-ignore
+	}
+	////
 	// $: console.log("🍏", $state.value);
 </script>
 
@@ -138,14 +128,21 @@
 	</nav>
 
 	<div class="my-2 -mx-4">
-		{#if $state.context.locations.length}
-			<LocationList locations={$state.context.locations} />
+		{#if browser}
+			{#if $state.context.locations.length}
+				<LocationList locations={$state.context.locations} />
+			{:else}
+				<div class:no-content--loading={$state.value === "loading"} class="no-content">
+					<p class="text-gray-700 text-center text-sm p-4">
+						{$state.value === "loading" ? "Memuat..." : "Tidak ditemukan."}
+					</p>
+				</div>
+			{/if}
 		{:else}
-			<div class:no-content--loading={$state.value === "loading"} class="no-content">
-				<p class="text-gray-700 text-center text-sm p-4">
-					{$state.value === "loading" ? "Memuat..." : "Tidak ditemukan."}
-				</p>
-			</div>
+			<!-- server-rendered HTML fallback without xstate -->
+			<LocationList {locations} />
+			<!-- penasaran -->
+			<!-- <Foo {locations} /> -->
 		{/if}
 	</div>
 </main>

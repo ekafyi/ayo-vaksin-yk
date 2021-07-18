@@ -22,9 +22,9 @@ interface IMyOutput {
 
 export const get = async (): Promise<IMyOutput> => {
 	// if (dev)
-	// 	return {
-	// 		body: { payload: [] },
-	// 	};
+	// return {
+	// 	body: { payload: [] },
+	// };
 
 	const res = await fetch(PIPEDREAM_API_URL);
 	if (res.ok) {
