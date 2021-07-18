@@ -69,8 +69,8 @@
 
 	// TODO (low priority) figure out where to run this
 	// ?? should be in SW install event instead?
-	if (browser && typeof window == "object") {
-		let urls = ["/", ...locations.map((loc) => makeSlug(loc.name, loc.type))];
+	if (browser && typeof window == "object" && !$userSettings?.hasPrefetched) {
+		let urls = locations.map((loc) => makeSlug(loc.name, loc.type));
 		window.caches
 			.open("cv-routes")
 			.then((cache) => cache.addAll(urls))

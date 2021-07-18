@@ -37,7 +37,6 @@
 			href={makeSlug(loc.name, loc.type)}
 			class={`location__name ${loc.type ? `location__name--${loc.type.toLowerCase()}` : ""}`}
 			id={`alabel-${loc.id}`}
-			sveltekit:prefetch
 		>
 			{`${loc.name} ${loc.canRegister ? "" : " ⛔️"}`}
 		</a>

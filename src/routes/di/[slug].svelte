@@ -1,22 +1,29 @@
 <script lang="ts" context="module">
 	import type { Load } from "@sveltejs/kit";
 	import { browser } from "$app/env";
+	import transformAirtableFields from "$lib/transform-airtable-fields";
+	import { getLocationData } from "$lib/get-row-from-all-locations";
 
 	export const router = browser;
 
-	let storedSinglePayload = {};
-
-	export const load: Load = async ({ page, fetch, session, context }) => {
+	export const load: Load = async ({ page, fetch }) => {
 		const slug = page.params.slug;
 
-		if (storedSinglePayload[slug]) return { props: { location: storedSinglePayload[slug] } }; // heheheh
+		const res = await fetch(`/api/locations`);
 
-		const res = await fetch(`/api/pd_location_${slug}`);
 		if (res.ok) {
-			const { payload } = await res.json();
-			if (payload) storedSinglePayload[slug] = payload; // heheheh lagi
+			const data: { records: IAirtableRowLocation[] } = await res.json();
+
+			const locationData = getLocationData(data, slug);
+			if (!locationData) return { status: 404 };
+
 			return {
-				props: { location: payload },
+				props: {
+					location: {
+						id: locationData[0].id,
+						...transformAirtableFields(locationData[0].fields),
+					},
+				},
 			};
 		}
 		return {

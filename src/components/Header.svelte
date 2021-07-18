@@ -11,7 +11,7 @@
 		<button>dark</button>
 	</nav> -->
 		<h1 class="font-bold text-4xl md:text-5xl">
-			<a href="/" class="home-header-link text-indigo-600">
+			<a href="/" class="home-header-link text-indigo-600" sveltekit:prefetch>
 				{HEADING_TEXT.title}
 			</a>
 			<small class="block mt-2 font-medium text-lg sm:text-xl leading-tight text-gray-500">
@@ -25,6 +25,7 @@
 			href="/"
 			class="text-sm text-indigo-600 font-semibold border-b hover:border-gray-400"
 			aria-label={`Beranda - ${HEADING_TEXT.title}`}
+			sveltekit:prefetch
 		>
 			&larr; {HEADING_TEXT.title}
 		</a>

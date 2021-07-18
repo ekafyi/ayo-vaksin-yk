@@ -5,10 +5,8 @@
 	export let spacingCss = "";
 </script>
 
-<!-- FIXME return time in EN format, date in ID format -->
-<!-- formatTime(utcDateString) -->
 <p class={`updated-text ${spacingCss}`}>
-	{`Diperbarui ${formatSimpleDate(utcDateString)}`}
+	{`Diperbarui ${formatSimpleDate(utcDateString)} ${formatTime(utcDateString)}`}
 </p>
 
 <style lang="postcss">
