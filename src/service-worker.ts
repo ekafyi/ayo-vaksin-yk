@@ -1,7 +1,7 @@
 import { build, timestamp } from "$service-worker";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute } from "workbox-precaching";
-import { staticResourceCache, imageCache } from "workbox-recipes";
+import { staticResourceCache, imageCache, warmStrategyCache } from "workbox-recipes";
 import { registerRoute, setCatchHandler, setDefaultHandler } from "workbox-routing";
 import { StaleWhileRevalidate, NetworkOnly } from "workbox-strategies";
 
@@ -18,13 +18,6 @@ self.addEventListener("install", (event) => {
 	// Activate new service worker as soon as it's finished installing.
 	// see: https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#skip_the_waiting_phase
 	event.waitUntil(self.skipWaiting());
-});
-
-self.addEventListener("activate", (event) => {
-	console.log("!!! SW activate !!!", event);
-	// the first time a service worker is installed it will active but not start controlling the page unless `clients.claim()` is called in the service worker.
-	// see: https://github.com/GoogleChrome/workbox/blob/v6/packages/workbox-window/src/Workbox.ts#L232-L234
-	event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener("message", (event) => {
@@ -60,6 +53,14 @@ imageCache({
 	// This module includes ExpirationPlugin by default.
 });
 
+warmStrategyCache({
+	urls: ["/api/locations"],
+	strategy: new StaleWhileRevalidate({
+		cacheName: "cv-warm-routes",
+		plugins: [new ExpirationPlugin({ maxAgeSeconds: 1 * 24 * 60 * 60 })],
+	}),
+});
+
 registerRoute(
 	({ request, url }) =>
 		url.pathname == START_URL ||
@@ -76,12 +77,7 @@ registerRoute(
 // ==============
 // ==============
 
-setDefaultHandler(
-	new StaleWhileRevalidate({
-		cacheName: "cv-default-handler",
-		plugins: [new ExpirationPlugin({ maxAgeSeconds: 7 * 24 * 60 * 60 })],
-	})
-);
+setDefaultHandler(new NetworkOnly());
 
 // This runs when any of the other routes fail to generate a response.
 setCatchHandler(async ({ event }) => {
