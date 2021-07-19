@@ -1,10 +1,9 @@
 <script lang="ts">
 	import "../app.css";
+	import type { WorkboxLifecycleEventMap } from "workbox-window/utils/WorkboxEvent";
 	import { onMount } from "svelte";
 	import { fade, fly } from "svelte/transition";
 	import { dev, browser } from "$app/env";
-	import { Workbox } from "workbox-window";
-	import type { WorkboxLifecycleEventMap } from "workbox-window/utils/WorkboxEvent";
 	import { Header, Footer } from "../components";
 	import { page } from "$app/stores";
 	import { COPY_TEXT } from "$lib/constants";
@@ -15,8 +14,10 @@
 	let offlineReady = false;
 	let deferredPrompt: BeforeInstallPromptEvent;
 
-	onMount(() => {
+	onMount(async () => {
 		if (!dev && browser && "serviceWorker" in navigator) {
+			const { Workbox } = await import("workbox-window");
+
 			// see: https://developers.google.com/web/tools/workbox/modules/workbox-window
 			const wb = new Workbox("/service-worker.js", { scope: "/" });
 			// not used right now, leave for future stuff eg. push notif
