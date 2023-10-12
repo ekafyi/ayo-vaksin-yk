@@ -1,6 +1,6 @@
 import { build, timestamp } from "$service-worker";
 import { ExpirationPlugin } from "workbox-expiration";
-import { precacheAndRoute } from "workbox-precaching";
+import { precacheAndRoute, cleanupOutdatedCaches } from "workbox-precaching";
 import { staticResourceCache, imageCache, warmStrategyCache } from "workbox-recipes";
 import { registerRoute, setCatchHandler, setDefaultHandler } from "workbox-routing";
 import { StaleWhileRevalidate, NetworkOnly } from "workbox-strategies";
@@ -27,6 +27,8 @@ self.addEventListener("message", (event) => {
 
 // ==============
 // ==============
+
+cleanupOutdatedCaches();
 
 precacheAndRoute([
 	{ url: START_URL, revision: `${timestamp}` },
